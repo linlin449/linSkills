@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="面向人和 Agent 的个人知识库与可复用技能档案。" />
+    <meta name="color-scheme" content="light" />
+    <title>Lin's Knowledge Base</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#reader">跳到正文</a>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <header class="brand">
+          <a class="brand-mark" href="#/" aria-label="知识库首页">LK</a>
+          <div>
+            <p class="eyebrow">PERSONAL ARCHIVE</p>
+            <h1>Knowledge<br />Base</h1>
+          </div>
+        </header>
+
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" /></svg>
+          <input id="search" type="search" placeholder="搜索标题、标签或正文…" autocomplete="off" />
+          <kbd>/</kbd>
+        </div>
+
+        <nav class="filters" aria-label="内容筛选">
+          <button class="filter is-active" data-filter="all"><span>全部</span><b id="count-all">0</b></button>
+          <button class="filter" data-filter="skill"><span>Skills</span><b id="count-skill">0</b></button>
+          <button class="filter" data-filter="knowledge"><span>知识</span><b id="count-knowledge">0</b></button>
+        </nav>
+
+        <div class="result-heading">
+          <span id="result-label">最近更新</span>
+          <span id="result-count">0 项</span>
+        </div>
+        <div class="item-list" id="item-list" aria-live="polite"></div>
+
+        <footer class="sidebar-footer">
+          <a href="llms.txt">LLMS.TXT <span>↗</span></a>
+          <a href="catalog.json">CATALOG.JSON <span>↗</span></a>
+        </footer>
+      </aside>
+
+      <main class="reader" id="reader" tabindex="-1">
+        <div class="topbar">
+          <button class="menu-button" id="menu-button" aria-controls="sidebar" aria-expanded="false" aria-label="打开目录">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+          <div class="breadcrumb"><span>ARCHIVE</span><i>/</i><strong id="breadcrumb">INDEX</strong></div>
+          <div class="status"><span></span> LOCAL-FIRST</div>
+        </div>
+
+        <article class="document" id="document">
+          <div class="loading-state">
+            <span class="loading-number">01</span>
+            <p>正在打开知识库…</p>
+          </div>
+        </article>
+      </main>
+    </div>
+    <div class="backdrop" id="backdrop"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

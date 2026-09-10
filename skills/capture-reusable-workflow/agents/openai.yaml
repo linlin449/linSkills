@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capture reusable workflow"
+  short_description: "Turn a proven workflow into a reusable skill"
+  default_prompt: "Turn this repeated workflow into a focused skill in my personal knowledge base."
