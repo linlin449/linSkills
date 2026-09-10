@@ -5,7 +5,7 @@
 ## 为什么这样设计
 
 - 内容不锁在数据库或某个网页产品中：Markdown 和文件夹才是唯一真相。
-- 人和 Agent 使用同一份内容：人通过 GitHub Pages 阅读，Agent 读取仓库、`catalog.json`、`llms.txt` 或原始 Markdown。
+- 人和 Agent 使用同一份内容：人通过 GitHub Pages 阅读和查看知识图谱，Agent 读取并维护仓库、`catalog.json`、`graph.json`、`llms.txt` 或原始 Markdown。
 - 从第一天就有版本历史：每次改动都能 review、回滚和比较。
 - 以后可以换网页框架，而无需迁移知识内容。
 
@@ -41,7 +41,7 @@ npm run check
 
 ## 添加内容
 
-新技能从 `templates/skill-template/` 复制，目录名和 frontmatter 中的 `name` 必须一致。普通知识从 `templates/note-template.md` 开始。不要把尚未稳定的随手笔记过早变成 skill；先记录为 knowledge，实际复用后再固化。
+新技能从 `templates/skill-template/` 复制，目录名和 frontmatter 中的 `name` 必须一致。普通知识从 `templates/note-template.md` 开始。Agent 通过 `related` 维护条目关系，具体约定见 [knowledge/system/graph-schema.md](knowledge/system/graph-schema.md)。不要把尚未稳定的随手笔记过早变成 skill；先记录为 knowledge，实际复用后再固化。
 
 ## 安装 skill 给本机 Codex
 
@@ -74,6 +74,7 @@ node scripts/install-skill.mjs --all
 
 - 克隆仓库：读取 `AGENTS.md` 和相关 `skills/<name>/SKILL.md`。
 - 网页索引：构建后访问 `catalog.json`。
+- 知识关系：构建后访问 `graph.json`。
 - 轻量文本入口：构建后访问 `llms.txt`。
 - 全文入口：构建后访问 `llms-full.txt`。
 

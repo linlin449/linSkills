@@ -1,6 +1,8 @@
 ---
 name: replace-with-skill-name
 description: Describe what this skill does and the requests that should activate it. Include a useful boundary when nearby requests should not use it.
+metadata:
+  related: []
 ---
 
 # Replace with skill title

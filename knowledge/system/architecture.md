@@ -7,6 +7,9 @@ tags:
   - agents
 updated: 2026-09-10
 status: active
+related:
+  - skill:capture-reusable-workflow
+  - knowledge:system/graph-schema
 ---
 
 # 个人知识库架构决策
@@ -29,7 +32,7 @@ Markdown / files
       |
       +--> Git history：版本、review、回滚
       +--> Agent：SKILL.md、catalog.json、llms.txt
-      `--> Static build：搜索与阅读网页
+      `--> Static build：搜索、阅读与知识图谱
 ```
 
 网页不拥有内容，也不要求单独的数据库。即使未来替换网站框架，`skills/` 和 `knowledge/` 仍然可以原样保留。
@@ -60,6 +63,7 @@ skill 的 `name` 和 `description` 决定 Agent 是否应该加载它，所以�
 - `tags`：用于检索的标签
 - `updated`：最后一次有意义更新的日期
 - `status`：`draft`、`active` 或 `archived`
+- `related`：与当前内容直接相关的条目 ID，用于生成知识图谱
 
 先把不成熟的想法保存为 knowledge。只有流程已经重复出现、输入输出相对稳定、并且让 Agent 自动执行确实有价值时，才升级为 skill。
 
@@ -91,11 +95,12 @@ GitHub Pages 发布的内容应视为公开信息。首版不支持私人内容�
 - skill 结构校验
 - 本机安装脚本
 - 静态检索和阅读
+- Agent 维护、网站自动生成的知识图谱
 - GitHub Actions 自动发布
 
 ### 内容变多以后
 
-- 增加内容关系和反向链接
+- 增加关系类型和反向链接列表
 - 给 skill 增加真实使用案例和质量状态
 - 以 GitHub Release 发布经过验证的 skill 版本
 - 自动检查失效链接、重复主题和过期内容

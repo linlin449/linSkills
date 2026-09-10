@@ -92,6 +92,7 @@ async function readItem(type, absolutePath, baseDirectory) {
   const parsed = matter(raw);
   const metadata = parsed.data || {};
   const tags = metadata.tags || metadata.metadata?.tags || [];
+  const related = metadata.related || metadata.metadata?.related || [];
   const title = metadata.title || metadata.name || firstHeading(parsed.content) || path.basename(absolutePath, ".md");
   const description = metadata.description || firstParagraph(parsed.content).slice(0, 220);
   const id = itemId(type, relativePath);
@@ -102,6 +103,7 @@ async function readItem(type, absolutePath, baseDirectory) {
     title,
     description,
     tags: Array.isArray(tags) ? tags.map(String) : [String(tags)],
+    related: Array.isArray(related) ? related.map(String) : [String(related)],
     updated: normalizeDate(metadata.updated || metadata.metadata?.updated),
     status: metadata.status || "active",
     sourcePath,
@@ -140,18 +142,48 @@ async function build() {
   )));
 
   const catalog = items.map(({ markdown, html, ...item }) => item);
+  const itemIds = new Set(catalog.map((item) => item.id));
+  const invalidLinks = catalog.flatMap((item) => item.related
+    .filter((target) => !itemIds.has(target))
+    .map((target) => `${item.id} -> ${target}`));
+  if (invalidLinks.length) {
+    throw new Error(`Unknown related item id(s):\n- ${invalidLinks.join("\n- ")}`);
+  }
+
+  const linkKeys = new Set();
+  const links = [];
+  for (const item of catalog) {
+    for (const target of item.related) {
+      const key = [item.id, target].sort().join("|");
+      if (linkKeys.has(key)) continue;
+      linkKeys.add(key);
+      links.push({ source: item.id, target });
+    }
+  }
+
+  const graph = {
+    schemaVersion: 1,
+    generatedAt: new Date().toISOString(),
+    nodes: catalog.map(({ id, type, title, description, tags, status, sourcePath }) => ({
+      id, type, title, description, tags, status, sourcePath
+    })),
+    links
+  };
   await fs.writeFile(path.join(DIST, "catalog.json"), JSON.stringify({
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
     items: catalog
   }, null, 2));
+  await fs.writeFile(path.join(DIST, "graph.json"), JSON.stringify(graph, null, 2));
 
   const llmsIndex = [
     "# Personal Knowledge Base",
     "",
     "> Canonical skills and personal reference notes. Use the catalog to discover content, then read the linked raw Markdown.",
     "",
-    ...catalog.map((item) => `- [${item.title}](${item.rawUrl}): ${item.description}`)
+    "Graph: graph.json",
+    "",
+    ...catalog.map((item) => `- [${item.title}](${item.rawUrl}): ${item.description}${item.related.length ? ` Related: ${item.related.join(", ")}.` : ""}`)
   ].join("\n");
   await fs.writeFile(path.join(DIST, "llms.txt"), `${llmsIndex}\n`);
 

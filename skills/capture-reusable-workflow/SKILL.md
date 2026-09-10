@@ -7,6 +7,9 @@ metadata:
   tags:
     - skills
     - knowledge-management
+  related:
+    - knowledge:system/architecture
+    - knowledge:system/graph-schema
 ---
 
 # Capture a reusable workflow
@@ -26,6 +29,8 @@ A workflow is ready when its goal recurs, the expected outcome is recognizable, 
 5. Add `references/` only for substantial conditional detail, `scripts/` only for logic worth executing repeatedly, and `assets/` only for files used in generated output.
 6. Preserve uncertainty. Do not turn a preference, one failure, or a single example into a universal rule.
 7. Run `npm run validate`. If scripts were added or changed, execute meaningful tests for their observable behavior.
+
+When the skill belongs to this knowledge base, maintain its `metadata.related` item IDs. Add only relationships that help a future reader or agent continue the task, and run `npm run check` so missing targets fail before publication.
 
 Use `templates/skill-template/` as a structural starting point when useful, and remove all placeholder text before validation.
 

@@ -13,10 +13,10 @@
     <div class="app-shell">
       <aside class="sidebar" id="sidebar">
         <header class="brand">
-          <a class="brand-mark" href="#/" aria-label="知识库首页">LK</a>
-          <div>
-            <p class="eyebrow">PERSONAL ARCHIVE</p>
-            <h1>Knowledge<br />Base</h1>
+          <a class="brand-mark" href="#/" aria-label="知识库首页">L</a>
+          <div class="brand-copy">
+            <h1>Lin's Archive</h1>
+            <p>Agent maintained</p>
           </div>
         </header>
 
@@ -42,15 +42,19 @@
           <a href="llms.txt">LLMS.TXT <span>↗</span></a>
           <a href="catalog.json">CATALOG.JSON <span>↗</span></a>
         </footer>
+        <div class="resize-handle" id="resize-handle" role="separator" aria-label="调节目录宽度" aria-orientation="vertical" aria-valuemin="240" aria-valuemax="420" tabindex="0"></div>
       </aside>
 
       <main class="reader" id="reader" tabindex="-1">
         <div class="topbar">
-          <button class="menu-button" id="menu-button" aria-controls="sidebar" aria-expanded="false" aria-label="打开目录">
+          <button class="menu-button" id="menu-button" aria-controls="sidebar" aria-expanded="true" aria-label="收起目录">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
           </button>
           <div class="breadcrumb"><span>ARCHIVE</span><i>/</i><strong id="breadcrumb">INDEX</strong></div>
-          <div class="status"><span></span> LOCAL-FIRST</div>
+          <nav class="view-switch" aria-label="视图">
+            <button class="is-active" data-view="reader">阅读</button>
+            <button data-view="graph">图谱</button>
+          </nav>
         </div>
 
         <article class="document" id="document">
