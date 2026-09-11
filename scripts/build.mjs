@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { marked } from "marked";
@@ -56,6 +57,19 @@ function categoryPath(type, relativePath) {
 
 function safeFileName(id) {
   return `${Buffer.from(id).toString("base64url")}.json`;
+}
+
+async function fingerprintSiteAssets() {
+  const indexPath = path.join(DIST, "index.html");
+  let index = await fs.readFile(indexPath, "utf8");
+
+  for (const asset of ["styles.css", "app.js"]) {
+    const content = await fs.readFile(path.join(DIST, asset));
+    const fingerprint = createHash("sha256").update(content).digest("hex").slice(0, 12);
+    index = index.replace(asset, `${asset}?v=${fingerprint}`);
+  }
+
+  await fs.writeFile(indexPath, index, "utf8");
 }
 
 function rewriteRelativeUrl(url, rawBase) {
@@ -128,6 +142,7 @@ async function build() {
   await fs.rm(DIST, { recursive: true, force: true });
   await fs.mkdir(DIST, { recursive: true });
   await fs.cp(path.join(ROOT, "site"), DIST, { recursive: true });
+  await fingerprintSiteAssets();
 
   const skillRoot = path.join(ROOT, "skills");
   const knowledgeRoot = path.join(ROOT, "knowledge");
