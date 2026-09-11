@@ -48,6 +48,12 @@ function itemId(type, relativePath) {
   return `${type}:${stem}`;
 }
 
+function categoryPath(type, relativePath) {
+  if (type === "skill") return ["skills"];
+  const directory = toPosix(path.dirname(relativePath));
+  return ["knowledge", ...(directory === "." ? ["uncategorized"] : directory.split("/"))];
+}
+
 function safeFileName(id) {
   return `${Buffer.from(id).toString("base64url")}.json`;
 }
@@ -96,6 +102,7 @@ async function readItem(type, absolutePath, baseDirectory) {
   const title = metadata.title || metadata.name || firstHeading(parsed.content) || path.basename(absolutePath, ".md");
   const description = metadata.description || firstParagraph(parsed.content).slice(0, 220);
   const id = itemId(type, relativePath);
+  const categories = categoryPath(type, relativePath);
 
   return {
     id,
@@ -106,6 +113,8 @@ async function readItem(type, absolutePath, baseDirectory) {
     related: Array.isArray(related) ? related.map(String) : [String(related)],
     updated: normalizeDate(metadata.updated || metadata.metadata?.updated),
     status: metadata.status || "active",
+    categoryPath: categories,
+    categoryId: categories.join("/"),
     sourcePath,
     rawUrl: `raw/${sourcePath}`,
     contentUrl: `content/${safeFileName(id)}`,
@@ -164,8 +173,8 @@ async function build() {
   const graph = {
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
-    nodes: catalog.map(({ id, type, title, description, tags, status, sourcePath }) => ({
-      id, type, title, description, tags, status, sourcePath
+    nodes: catalog.map(({ id, type, title, description, tags, status, categoryPath, categoryId, sourcePath }) => ({
+      id, type, title, description, tags, status, categoryPath, categoryId, sourcePath
     })),
     links
   };

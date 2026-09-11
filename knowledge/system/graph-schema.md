@@ -9,6 +9,7 @@ updated: 2026-09-10
 status: active
 related:
   - knowledge:system/architecture
+  - knowledge:system/category-schema
   - skill:capture-reusable-workflow
 ---
 

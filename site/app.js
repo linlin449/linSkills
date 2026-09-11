@@ -2,7 +2,8 @@ const state = {
   items: [],
   graph: { nodes: [], links: [] },
   activeId: null,
-  filter: "all",
+  category: "all",
+  openCategories: new Set(["skills", "knowledge"]),
   query: "",
   view: "reader"
 };
@@ -13,6 +14,7 @@ const elements = {
   menuButton: document.querySelector("#menu-button"),
   resizeHandle: document.querySelector("#resize-handle"),
   search: document.querySelector("#search"),
+  categoryTree: document.querySelector("#category-tree"),
   list: document.querySelector("#item-list"),
   document: document.querySelector("#document"),
   breadcrumb: document.querySelector("#breadcrumb"),
@@ -26,12 +28,88 @@ const desktop = window.matchMedia("(min-width: 901px)");
 const siteUrl = (relativePath) => new URL(relativePath, window.location.href.split("#")[0]).href;
 const escapeHtml = (value = "") => String(value).replace(/[&<>"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char]);
 const typeLabel = (type) => type === "skill" ? "SKILL" : "NOTE";
+const categoryLabel = (segment) => ({ skills: "Skills", knowledge: "知识", uncategorized: "未分类" })[segment]
+  || segment.replace(/-/g, " ").replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+function isInCategory(item, category) {
+  if (category === "all") return true;
+  const itemCategory = item.categoryId || item.categoryPath?.join("/") || (item.type === "skill" ? "skills" : "knowledge/uncategorized");
+  return itemCategory === category || itemCategory.startsWith(`${category}/`);
+}
+
+function categoryName(category) {
+  if (category === "all") return "全部内容";
+  return category.split("/").map(categoryLabel).join(" / ");
+}
+
+function buildCategoryTree(items) {
+  const roots = new Map();
+  items.forEach((item) => {
+    const parts = item.categoryPath || (item.type === "skill" ? ["skills"] : ["knowledge", "uncategorized"]);
+    let children = roots;
+    parts.forEach((part, index) => {
+      const id = parts.slice(0, index + 1).join("/");
+      if (!children.has(part)) children.set(part, { id, part, count: 0, children: new Map() });
+      const node = children.get(part);
+      node.count += 1;
+      children = node.children;
+    });
+  });
+  return roots;
+}
+
+function folderIcon(open = false) {
+  return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5h6l2-2h9v13h-17z"/><path d="M3.5 9.5h17"/>${open ? '<path d="m8 13 4 3 4-3"/>' : ""}</svg>`;
+}
+
+function renderCategoryNodes(nodes, depth = 0) {
+  return [...nodes.values()].map((node) => {
+    const hasChildren = node.children.size > 0;
+    const isOpen = state.openCategories.has(node.id);
+    return `
+      <div class="category-node" style="--depth:${depth}">
+        <div class="category-row">
+          ${hasChildren ? `<button class="category-toggle" data-toggle-category="${escapeHtml(node.id)}" aria-expanded="${isOpen}" aria-label="${isOpen ? "收起" : "展开"} ${escapeHtml(categoryLabel(node.part))}"><span>›</span></button>` : '<span class="category-spacer"></span>'}
+          <button class="category-select ${state.category === node.id ? "is-active" : ""}" data-category="${escapeHtml(node.id)}">
+            ${folderIcon(isOpen)}
+            <span>${escapeHtml(categoryLabel(node.part))}</span>
+            <b>${node.count}</b>
+          </button>
+        </div>
+        ${hasChildren && isOpen ? `<div class="category-children">${renderCategoryNodes(node.children, depth + 1)}</div>` : ""}
+      </div>`;
+  }).join("");
+}
+
+function renderCategories() {
+  const tree = buildCategoryTree(state.items);
+  elements.categoryTree.innerHTML = `
+    <button class="category-all ${state.category === "all" ? "is-active" : ""}" data-category="all">
+      <span class="category-all-icon">⌂</span><span>全部内容</span><b>${state.items.length}</b>
+    </button>
+    <div class="category-roots">${renderCategoryNodes(tree)}</div>`;
+  elements.categoryTree.querySelectorAll("[data-category]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.category = button.dataset.category;
+      renderCategories();
+      renderList();
+    });
+  });
+  elements.categoryTree.querySelectorAll("[data-toggle-category]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const id = button.dataset.toggleCategory;
+      if (state.openCategories.has(id)) state.openCategories.delete(id);
+      else state.openCategories.add(id);
+      renderCategories();
+    });
+  });
+}
 
 function filteredItems() {
   const words = state.query.toLocaleLowerCase().split(/\s+/).filter(Boolean);
   return state.items.filter((item) => {
-    if (state.filter !== "all" && item.type !== state.filter) return false;
+    if (!isInCategory(item, state.category)) return false;
     const haystack = [item.title, item.description, item.sourcePath, item.searchText, ...item.tags].join(" ").toLocaleLowerCase();
     return words.every((word) => haystack.includes(word));
   });
@@ -39,13 +117,14 @@ function filteredItems() {
 
 function renderList() {
   const items = filteredItems();
-  elements.resultLabel.textContent = state.query ? `“${state.query}”` : "最近更新";
+  elements.resultLabel.textContent = state.query ? `“${state.query}”` : categoryName(state.category);
   elements.resultCount.textContent = `${items.length} 项`;
   elements.list.innerHTML = items.length ? items.map((item) => `
     <button class="item-card ${item.id === state.activeId ? "is-active" : ""}" data-id="${escapeHtml(item.id)}">
       <span class="item-type">${typeLabel(item.type)}</span>
       <span class="item-copy">
         <strong>${escapeHtml(item.title)}</strong>
+        <em>${escapeHtml((item.categoryPath || []).slice(1).map(categoryLabel).join(" / ") || categoryLabel(item.categoryPath?.[0] || item.type))}</em>
         <small>${escapeHtml(item.description)}</small>
       </span>
       <span class="item-arrow">→</span>
@@ -80,7 +159,7 @@ async function openItem(id, updateHash = true) {
   setView("reader");
   state.activeId = id;
   renderList();
-  elements.breadcrumb.textContent = item.type === "skill" ? "SKILLS" : "KNOWLEDGE";
+  elements.breadcrumb.textContent = (item.categoryPath || [item.type]).map(categoryLabel).join(" / ").toUpperCase();
   elements.document.innerHTML = `<div class="loading-state"><span class="loading-number">↻</span><p>读取内容…</p></div>`;
   closeMobileSidebar();
 
@@ -293,9 +372,9 @@ function drawGraph() {
 
 function clearSearch() {
   state.query = "";
-  state.filter = "all";
+  state.category = "all";
   elements.search.value = "";
-  document.querySelectorAll(".filter").forEach((button) => button.classList.toggle("is-active", button.dataset.filter === "all"));
+  renderCategories();
   renderList();
 }
 
@@ -350,9 +429,7 @@ async function init() {
     const catalog = await catalogResponse.json();
     state.graph = await graphResponse.json();
     state.items = catalog.items;
-    document.querySelector("#count-all").textContent = state.items.length;
-    document.querySelector("#count-skill").textContent = state.items.filter((item) => item.type === "skill").length;
-    document.querySelector("#count-knowledge").textContent = state.items.filter((item) => item.type === "knowledge").length;
+    renderCategories();
     renderList();
 
     if (location.hash === "#/graph") {
@@ -371,13 +448,6 @@ async function init() {
 elements.search.addEventListener("input", (event) => {
   state.query = event.target.value.trim();
   renderList();
-});
-document.querySelectorAll(".filter").forEach((button) => {
-  button.addEventListener("click", () => {
-    state.filter = button.dataset.filter;
-    document.querySelectorAll(".filter").forEach((candidate) => candidate.classList.toggle("is-active", candidate === button));
-    renderList();
-  });
 });
 elements.viewButtons.forEach((button) => button.addEventListener("click", () => {
   if (button.dataset.view === "graph") showGraph();

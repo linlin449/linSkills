@@ -26,11 +26,13 @@
           <kbd>/</kbd>
         </div>
 
-        <nav class="filters" aria-label="内容筛选">
-          <button class="filter is-active" data-filter="all"><span>全部</span><b id="count-all">0</b></button>
-          <button class="filter" data-filter="skill"><span>Skills</span><b id="count-skill">0</b></button>
-          <button class="filter" data-filter="knowledge"><span>知识</span><b id="count-knowledge">0</b></button>
-        </nav>
+        <section class="category-panel" aria-labelledby="category-title">
+          <div class="category-heading">
+            <span id="category-title">文件夹</span>
+            <small>自动同步</small>
+          </div>
+          <nav class="category-tree" id="category-tree" aria-label="内容分类"></nav>
+        </section>
 
         <div class="result-heading">
           <span id="result-label">最近更新</span>

@@ -10,6 +10,7 @@ status: active
 related:
   - skill:capture-reusable-workflow
   - knowledge:system/graph-schema
+  - knowledge:system/category-schema
 ---
 
 # 个人知识库架构决策
@@ -67,11 +68,13 @@ skill 的 `name` 和 `description` 决定 Agent 是否应该加载它，所以�
 
 先把不成熟的想法保存为 knowledge。只有流程已经重复出现、输入输出相对稳定、并且让 Agent 自动执行确实有价值时，才升级为 skill。
 
+目录本身就是稳定的层级分类，例如 `knowledge/system/`、`knowledge/ai/`、`knowledge/projects/`；网站会据此自动生成可折叠的文件夹导航。标签不再承担归档职责，只表达可能横跨多个目录的主题。详细约定见“知识分类维护约定”。
+
 ## 访问方式
 
 ### 人类入口
 
-GitHub Pages 提供全文搜索、类型筛选、标签和 Markdown 阅读。首版是纯静态站点，不需要服务器和登录。
+GitHub Pages 提供全文搜索、文件夹分类、标签和 Markdown 阅读。首版是纯静态站点，不需要服务器和登录。
 
 ### Agent 入口
 

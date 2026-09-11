@@ -4,7 +4,7 @@
 
 ## 为什么这样设计
 
-- 内容不锁在数据库或某个网页产品中：Markdown 和文件夹才是唯一真相。
+- 内容不锁在数据库或某个网页产品中：Markdown 和文件夹才是唯一真相，目录层级会自动成为网页分类。
 - 人和 Agent 使用同一份内容：人通过 GitHub Pages 阅读和查看知识图谱，Agent 读取并维护仓库、`catalog.json`、`graph.json`、`llms.txt` 或原始 Markdown。
 - 从第一天就有版本历史：每次改动都能 review、回滚和比较。
 - 以后可以换网页框架，而无需迁移知识内容。
@@ -15,7 +15,7 @@
 
 ```text
 skills/<skill-name>/SKILL.md    可复用的 Agent 技能
-knowledge/<topic>.md            普通知识、决策和笔记
+knowledge/<category>/<note>.md  按真实文件夹分类的知识、决策和笔记
 templates/                      新内容模板
 site/                           静态网页界面
 scripts/                        构建、校验和安装工具
@@ -41,7 +41,7 @@ npm run check
 
 ## 添加内容
 
-新技能从 `templates/skill-template/` 复制，目录名和 frontmatter 中的 `name` 必须一致。普通知识从 `templates/note-template.md` 开始。Agent 通过 `related` 维护条目关系，具体约定见 [knowledge/system/graph-schema.md](knowledge/system/graph-schema.md)。不要把尚未稳定的随手笔记过早变成 skill；先记录为 knowledge，实际复用后再固化。
+新技能从 `templates/skill-template/` 复制，目录名和 frontmatter 中的 `name` 必须一致。普通知识从 `templates/note-template.md` 开始，并放进合适的 `knowledge/<category>/` 目录；网站会自动生成文件夹树，标签则用于跨分类检索。分类约定见 [knowledge/system/category-schema.md](knowledge/system/category-schema.md)，关系约定见 [knowledge/system/graph-schema.md](knowledge/system/graph-schema.md)。不要把尚未稳定的随手笔记过早变成 skill；先记录为 knowledge，实际复用后再固化。
 
 ## 安装 skill 给本机 Codex
 
