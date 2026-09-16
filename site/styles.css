@@ -144,6 +144,7 @@ a { color: inherit; }
 .markdown-body th, .markdown-body td { border: 1px solid var(--line); padding: .7rem .8rem; text-align: left; }
 .markdown-body th { background: #edf0f3; color: var(--ink); }
 .markdown-body hr { margin: 3rem 0; border: 0; border-top: 1px solid var(--line); }
+.markdown-body img { display: block; max-width: 100%; height: auto; margin: 1.8rem auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
 .document-footer { display: flex; justify-content: space-between; margin-top: 5rem; border-top: 1px solid var(--line-strong); padding-top: .8rem; color: #8a93a1; font-family: var(--mono); font-size: .6rem; letter-spacing: .07em; }
 .document-footer b { color: #677181; font-weight: 500; }
 

@@ -13,6 +13,7 @@ related:
   - knowledge:courses/gse-2026-nju/overview
   - knowledge:courses/gse-2026-nju/01-welcome-to-the-future
   - knowledge:courses/gse-2026-nju/02-prompt-engineering
+  - knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs
 ---
 
 # 生成式软件工程 03 · 软件仓库管理

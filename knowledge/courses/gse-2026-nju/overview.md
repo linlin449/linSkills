@@ -1,6 +1,6 @@
 ---
 title: 生成式软件工程（NJU 2026）课程笔记总览
-description: 蒋炎岩《生成式软件工程》前三讲的学习笔记导读：课程主线、三讲索引与学习建议。
+description: 蒋炎岩《生成式软件工程》前四讲的学习笔记导读：课程主线、四讲索引与学习建议。
 tags:
   - generative-software-engineering
   - course-notes
@@ -13,6 +13,7 @@ related:
   - knowledge:courses/gse-2026-nju/01-welcome-to-the-future
   - knowledge:courses/gse-2026-nju/02-prompt-engineering
   - knowledge:courses/gse-2026-nju/03-software-repository-management
+  - knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs
 ---
 
 # 生成式软件工程（NJU 2026）课程笔记总览
@@ -37,9 +38,10 @@ related:
 |----|------|----------------|-----------|
 | 01 | 欢迎来到未来 | 建立图景 | AI 已经强到可怕，但"想象力是你的上限"，先看清 Agent 能替你做什么、边界在哪 |
 | 02 | 提示词工程 | 驾驭的手段 | 你和 AI 唯一的接口是"上下文"，所谓提示词工程其实是**上下文工程** |
-| 03 | 软件仓库管理 | 驾驭的载体 | 软件的最小单元是"快照"，用 Git 把项目组织成"由 atomic change 推进的一系列快照" |
+| 03 | 软件仓库管理 | 驾驭的载体 | 软件的最小单元是“快照”，用 Git 把项目组织成“由 atomic change 推进的一系列快照” |
+| 04 | 软件仓库管理（2） | 驾驭的进化 | 文件系统装不下关联，用 traceability 与 jj 的 change，为 Agent 时代重新设计版本控制 |
 
-三讲连起来是一个完整的闭环：**先信（AI 时代真的来了）→ 再会（知道怎么指挥它）→ 再稳（让它做出的东西能长期演化、可审计）**。
+四讲连起来是一个完整的闭环：**先信（AI 时代真的来了）→ 再会（知道怎么指挥它）→ 再稳（让它做出的东西能长期演化、可审计）→ 再进（为 Agent 时代重新设计版本控制）**。
 
 ## 贯穿全课的几个高频概念
 
@@ -60,8 +62,9 @@ related:
 3. **先动手做出来，再回头复盘理解。** 先用 AI 把东西搞出来，再反向搞懂它为什么这么做，比从零搭积木快得多。
 4. **把"假努力"换成"有效努力"。** 已知怎么干、AI 也干得好的事，放手让它干；把 100% 的时间留给"把不知道的东西弄明白"。
 
-## 三讲笔记索引
+## 四讲笔记索引
 
 - [01 欢迎来到未来](#/item/knowledge:courses/gse-2026-nju/01-welcome-to-the-future)
 - [02 提示词工程](#/item/knowledge:courses/gse-2026-nju/02-prompt-engineering)
 - [03 软件仓库管理](#/item/knowledge:courses/gse-2026-nju/03-software-repository-management)
+- [04 软件仓库管理（2）：Traceability 与 jj](#/item/knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs)
