@@ -20,6 +20,17 @@
           </div>
         </header>
 
+        <nav class="workspace-switch" aria-label="知识库视图">
+          <button class="is-active" data-view="reader" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h11.5A2.5 2.5 0 0 1 19 7v12.5H7.5A2.5 2.5 0 0 1 5 17z"/><path d="M5 17a2.5 2.5 0 0 1 2.5-2.5H19M8.5 8h7M8.5 11h5"/></svg>
+            <span><strong>阅读</strong><small>知识与技能</small></span>
+          </button>
+          <button data-view="graph" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="7" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="m8 6.3 7.8.5M7.3 7.8l3.5 8M16.7 8.8l-3.5 7.3"/></svg>
+            <span><strong>图谱</strong><small>全库关系</small></span>
+          </button>
+        </nav>
+
         <div class="search-wrap">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" /></svg>
           <input id="search" type="search" placeholder="搜索标题、标签或正文…" autocomplete="off" />
@@ -32,6 +43,18 @@
             <small>自动同步</small>
           </div>
           <nav class="category-tree" id="category-tree" aria-label="内容分类"></nav>
+        </section>
+
+        <section class="outline-panel" id="outline-panel" aria-labelledby="outline-title" hidden>
+          <div class="outline-heading">
+            <span id="outline-title">本文目录</span>
+            <button id="outline-top" type="button">回到顶部</button>
+          </div>
+          <div class="reading-progress" aria-label="阅读进度">
+            <div><span id="reading-section">正文开始</span><b id="reading-progress-label">0%</b></div>
+            <span class="reading-progress-track"><i id="reading-progress-bar"></i></span>
+          </div>
+          <nav class="article-outline" id="article-outline" aria-label="本文目录"></nav>
         </section>
 
         <div class="result-heading">
@@ -53,10 +76,6 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
           </button>
           <div class="breadcrumb"><span>ARCHIVE</span><i>/</i><strong id="breadcrumb">INDEX</strong></div>
-          <nav class="view-switch" aria-label="视图">
-            <button class="is-active" data-view="reader">阅读</button>
-            <button data-view="graph">图谱</button>
-          </nav>
         </div>
 
         <article class="document" id="document">

@@ -5,7 +5,11 @@ const state = {
   category: "all",
   openCategories: new Set(["skills", "knowledge"]),
   query: "",
-  view: "reader"
+  view: "reader",
+  graphScope: "related",
+  graphExpanded: false,
+  outlineHeadings: [],
+  activeHeadingId: null
 };
 
 const elements = {
@@ -15,6 +19,12 @@ const elements = {
   resizeHandle: document.querySelector("#resize-handle"),
   search: document.querySelector("#search"),
   categoryTree: document.querySelector("#category-tree"),
+  outlinePanel: document.querySelector("#outline-panel"),
+  outline: document.querySelector("#article-outline"),
+  outlineTop: document.querySelector("#outline-top"),
+  readingSection: document.querySelector("#reading-section"),
+  readingProgressLabel: document.querySelector("#reading-progress-label"),
+  readingProgressBar: document.querySelector("#reading-progress-bar"),
   list: document.querySelector("#item-list"),
   document: document.querySelector("#document"),
   breadcrumb: document.querySelector("#breadcrumb"),
@@ -31,6 +41,8 @@ const typeLabel = (type) => type === "skill" ? "SKILL" : "NOTE";
 const categoryLabel = (segment) => ({ skills: "Skills", knowledge: "知识", uncategorized: "未分类" })[segment]
   || segment.replace(/-/g, " ").replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+let graphController = null;
+let scrollFrame = null;
 
 function isInCategory(item, category) {
   if (category === "all") return true;
@@ -144,8 +156,112 @@ function renderList() {
 
 function setView(view) {
   state.view = view;
-  elements.viewButtons.forEach((button) => button.classList.toggle("is-active", button.dataset.view === view));
+  elements.viewButtons.forEach((button) => {
+    const active = button.dataset.view === view;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
   elements.document.classList.toggle("graph-document", view === "graph");
+  elements.outlinePanel.hidden = view !== "reader" || state.outlineHeadings.length === 0;
+  if (view !== "graph" && state.graphExpanded) {
+    state.graphExpanded = false;
+    document.body.classList.remove("graph-expanded");
+  }
+}
+
+function resetOutline() {
+  state.outlineHeadings = [];
+  state.activeHeadingId = null;
+  elements.outline.innerHTML = "";
+  elements.outlinePanel.hidden = true;
+  elements.readingSection.textContent = "正文开始";
+  elements.readingProgressLabel.textContent = "0%";
+  elements.readingProgressBar.style.width = "0%";
+}
+
+function makeHeadingId(text, index, used) {
+  const normalized = text.trim().toLocaleLowerCase()
+    .replace(/[`*_]/g, "")
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/^-+|-+$/g, "") || `section-${index + 1}`;
+  let id = `section-${normalized}`;
+  let suffix = 2;
+  while (used.has(id)) id = `section-${normalized}-${suffix++}`;
+  used.add(id);
+  return id;
+}
+
+function buildOutline() {
+  const body = elements.document.querySelector(".markdown-body");
+  if (!body) {
+    resetOutline();
+    return;
+  }
+
+  const headings = [...body.querySelectorAll("h2, h3")].filter((heading) => heading.textContent.trim());
+  const used = new Set([...elements.document.querySelectorAll("[id]")].map((element) => element.id).filter(Boolean));
+  headings.forEach((heading, index) => {
+    if (!heading.id) heading.id = makeHeadingId(heading.textContent, index, used);
+  });
+  state.outlineHeadings = headings;
+  state.activeHeadingId = null;
+  elements.outlinePanel.hidden = state.view !== "reader" || headings.length === 0;
+  elements.outline.innerHTML = headings.map((heading, index) => `
+    <button class="outline-link level-${heading.tagName.slice(1)}" data-outline-index="${index}" type="button">
+      <span></span><b>${escapeHtml(heading.textContent.trim())}</b>
+    </button>`).join("");
+
+  elements.outline.querySelectorAll("[data-outline-index]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const heading = state.outlineHeadings[Number(button.dataset.outlineIndex)];
+      heading?.scrollIntoView({ behavior: "smooth", block: "start" });
+      closeMobileSidebar();
+    });
+  });
+  updateReadingProgress();
+}
+
+function updateReadingProgress() {
+  if (state.view !== "reader" || !state.outlineHeadings.length) return;
+  const body = elements.document.querySelector(".markdown-body");
+  if (!body) return;
+
+  const marker = window.scrollY + 96;
+  let activeIndex = -1;
+  state.outlineHeadings.forEach((heading, index) => {
+    const top = heading.getBoundingClientRect().top + window.scrollY;
+    if (top <= marker) activeIndex = index;
+  });
+
+  const activeHeading = state.outlineHeadings[activeIndex] || null;
+  const nextActiveId = activeHeading?.id || "";
+  elements.outline.querySelectorAll("[data-outline-index]").forEach((button, index) => {
+    const active = index === activeIndex;
+    button.classList.toggle("is-active", active);
+    if (active) button.setAttribute("aria-current", "location");
+    else button.removeAttribute("aria-current");
+  });
+  elements.readingSection.textContent = activeHeading?.textContent.trim() || "正文开始";
+
+  if (nextActiveId !== state.activeHeadingId) {
+    state.activeHeadingId = nextActiveId;
+    const activeButton = elements.outline.querySelector(".outline-link.is-active");
+    if (activeButton) {
+      const top = activeButton.offsetTop;
+      const bottom = top + activeButton.offsetHeight;
+      if (top < elements.outline.scrollTop) elements.outline.scrollTop = Math.max(0, top - 8);
+      else if (bottom > elements.outline.scrollTop + elements.outline.clientHeight) {
+        elements.outline.scrollTop = bottom - elements.outline.clientHeight + 8;
+      }
+    }
+  }
+
+  const rect = body.getBoundingClientRect();
+  const start = rect.top + window.scrollY - 96;
+  const finish = Math.max(start + 1, rect.bottom + window.scrollY - window.innerHeight + 72);
+  const percent = Math.round(clamp((window.scrollY - start) / (finish - start), 0, 1) * 100);
+  elements.readingProgressLabel.textContent = `${percent}%`;
+  elements.readingProgressBar.style.width = `${percent}%`;
 }
 
 function renderTags(tags) {
@@ -156,8 +272,10 @@ function renderTags(tags) {
 async function openItem(id, updateHash = true) {
   const item = state.items.find((candidate) => candidate.id === id);
   if (!item) return;
-  setView("reader");
   state.activeId = id;
+  state.graphScope = "related";
+  resetOutline();
+  setView("reader");
   renderList();
   elements.breadcrumb.textContent = (item.categoryPath || [item.type]).map(categoryLabel).join(" / ").toUpperCase();
   elements.document.innerHTML = `<div class="loading-state"><span class="loading-number">↻</span><p>读取内容…</p></div>`;
@@ -198,65 +316,165 @@ async function openItem(id, updateHash = true) {
         renderList();
       });
     });
+    buildOutline();
     if (updateHash) history.replaceState(null, "", `#/item/${encodeURIComponent(id)}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    requestAnimationFrame(updateReadingProgress);
   } catch (error) {
     elements.document.innerHTML = `<div class="error-state"><b>读取失败</b><p>${escapeHtml(error.message)}</p><button id="retry">重试</button></div>`;
     document.querySelector("#retry")?.addEventListener("click", () => openItem(id, false));
   }
 }
 
+function visibleGraphData() {
+  if (state.graphScope !== "related" || !state.activeId) {
+    return { nodes: state.graph.nodes, links: state.graph.links };
+  }
+  const links = state.graph.links.filter((link) => link.source === state.activeId || link.target === state.activeId);
+  const ids = new Set([state.activeId]);
+  links.forEach((link) => {
+    ids.add(link.source);
+    ids.add(link.target);
+  });
+  return {
+    nodes: state.graph.nodes.filter((node) => ids.has(node.id)),
+    links
+  };
+}
+
 function showGraph(updateHash = true) {
+  if (!state.activeId) state.graphScope = "all";
   setView("graph");
-  elements.breadcrumb.textContent = "GRAPH";
+  document.body.classList.toggle("graph-expanded", state.graphExpanded);
+  const data = visibleGraphData();
+  const activeItem = state.items.find((item) => item.id === state.activeId);
+  const related = state.graphScope === "related" && activeItem;
+  elements.breadcrumb.textContent = related ? "GRAPH / RELATED" : "GRAPH / ALL";
   elements.document.innerHTML = `
     <section class="graph-shell">
       <header class="graph-header">
-        <div>
+        <div class="graph-copy">
           <span class="graph-eyebrow">KNOWLEDGE MAP</span>
-          <h2>知识之间，如何连接</h2>
-          <p>关系由 Agent 随 Markdown 一起维护。点击节点即可打开内容。</p>
+          <h2>${related ? `${escapeHtml(activeItem.title)}的直接关联` : "全库知识关系"}</h2>
+          <p>${related
+            ? "只展示当前条目与直接相连的知识和技能；点击节点即可继续阅读。"
+            : "展示系统中的全部知识和技能。默认使用当前关联视图，避免条目增长后信息过载。"}</p>
         </div>
-        <div class="graph-stats">
-          <span><b>${state.graph.nodes.length}</b> 条目</span>
-          <span><b>${state.graph.links.length}</b> 关系</span>
+        <div class="graph-header-side">
+          <div class="graph-scope-switch" role="group" aria-label="图谱范围">
+            <button data-graph-scope="related" class="${state.graphScope === "related" ? "is-active" : ""}" ${activeItem ? "" : "disabled"}>当前关联</button>
+            <button data-graph-scope="all" class="${state.graphScope === "all" ? "is-active" : ""}">全库图谱</button>
+          </div>
+          <div class="graph-stats">
+            <span><b>${data.nodes.length}</b> 条目</span>
+            <span><b>${data.links.length}</b> 关系</span>
+          </div>
         </div>
       </header>
-      <div class="graph-canvas" id="graph-canvas" role="region" aria-label="知识图谱">
+      <div class="graph-canvas ${state.graphExpanded ? "is-expanded" : ""}" id="graph-canvas" role="region" aria-label="知识图谱">
+        <div class="graph-toolbar" role="toolbar" aria-label="图谱显示控制">
+          <button data-graph-action="zoom-out" type="button" aria-label="缩小图谱" title="缩小">−</button>
+          <span id="graph-zoom-label">100%</span>
+          <button data-graph-action="zoom-in" type="button" aria-label="放大图谱" title="放大">＋</button>
+          <button class="graph-fit-button" data-graph-action="fit" type="button">适应画布</button>
+          <button class="graph-expand-button" data-graph-action="expand" type="button">${state.graphExpanded ? "收起" : "全屏放大"}</button>
+        </div>
+        <div class="graph-hint">滚轮缩放 · 拖动画布 · 拖动节点</div>
         <svg id="graph-svg" aria-label="知识条目关系图"></svg>
-        <div class="graph-legend"><span class="skill-dot"></span>Skill <span class="note-dot"></span>Knowledge</div>
+        <div class="graph-legend">${activeItem ? '<span class="current-dot"></span>当前 ' : ''}<span class="skill-dot"></span>Skill <span class="note-dot"></span>Knowledge</div>
       </div>
     </section>`;
-  if (updateHash) history.replaceState(null, "", "#/graph");
+
+  document.querySelectorAll("[data-graph-scope]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.graphScope = button.dataset.graphScope;
+      showGraph(true);
+    });
+  });
+  document.querySelectorAll("[data-graph-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.dataset.graphAction;
+      if (action === "zoom-in") graphController?.zoomBy(1.22);
+      else if (action === "zoom-out") graphController?.zoomBy(1 / 1.22);
+      else if (action === "fit") graphController?.fit();
+      else if (action === "expand") {
+        state.graphExpanded = !state.graphExpanded;
+        document.body.classList.toggle("graph-expanded", state.graphExpanded);
+        document.querySelector("#graph-canvas")?.classList.toggle("is-expanded", state.graphExpanded);
+        button.textContent = state.graphExpanded ? "收起" : "全屏放大";
+        requestAnimationFrame(drawGraph);
+      }
+    });
+  });
+  if (updateHash) {
+    const route = related ? `#/graph/${encodeURIComponent(state.activeId)}` : "#/graph";
+    history.replaceState(null, "", route);
+  }
   closeMobileSidebar();
   requestAnimationFrame(drawGraph);
 }
 
 function drawGraph() {
   const canvas = document.querySelector("#graph-canvas");
-  const svg = document.querySelector("#graph-svg");
-  if (!canvas || !svg || !state.graph.nodes.length) return;
+  const existingSvg = document.querySelector("#graph-svg");
+  const data = visibleGraphData();
+  if (!canvas || !existingSvg || !data.nodes.length) return;
+  const svg = existingSvg.cloneNode(false);
+  existingSvg.replaceWith(svg);
 
+  const expanded = canvas.classList.contains("is-expanded");
   const width = Math.max(560, canvas.clientWidth);
-  const height = Math.max(470, Math.min(680, window.innerHeight - 210));
+  const height = expanded
+    ? Math.max(520, canvas.clientHeight)
+    : Math.max(470, Math.min(680, window.innerHeight - 210));
+  const related = state.graphScope === "related" && Boolean(state.activeId);
+  const dense = data.nodes.length > 32;
+  canvas.classList.toggle("is-dense", dense);
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-  const nodes = state.graph.nodes.map((node, index) => {
-    const angle = (index / state.graph.nodes.length) * Math.PI * 2 - Math.PI / 2;
-    const radius = Math.min(width, height) * .27;
-    return { ...node, x: width / 2 + Math.cos(angle) * radius, y: height / 2 + Math.sin(angle) * radius, vx: 0, vy: 0 };
+
+  const neighbors = data.nodes.filter((node) => node.id !== state.activeId);
+  const maxRadius = Math.min(width, height) * .34;
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+  const nodes = data.nodes.map((node, index) => {
+    if (related && node.id === state.activeId) {
+      return { ...node, x: width / 2, y: height / 2, vx: 0, vy: 0, fixed: true };
+    }
+    if (related) {
+      const neighborIndex = neighbors.findIndex((candidate) => candidate.id === node.id);
+      const angle = (neighborIndex / Math.max(1, neighbors.length)) * Math.PI * 2 - Math.PI / 2;
+      const radius = Math.min(maxRadius, 150 + neighbors.length * 4);
+      return { ...node, x: width / 2 + Math.cos(angle) * radius, y: height / 2 + Math.sin(angle) * radius, vx: 0, vy: 0, fixed: false };
+    }
+    const ratio = Math.sqrt((index + 1) / Math.max(1, data.nodes.length));
+    const angle = index * goldenAngle - Math.PI / 2;
+    return {
+      ...node,
+      x: width / 2 + Math.cos(angle) * maxRadius * ratio,
+      y: height / 2 + Math.sin(angle) * maxRadius * ratio,
+      vx: 0,
+      vy: 0,
+      fixed: false
+    };
   });
   const byId = new Map(nodes.map((node) => [node.id, node]));
-  const links = state.graph.links.map((link) => ({ ...link, a: byId.get(link.source), b: byId.get(link.target) }));
+  const links = data.links
+    .map((link) => ({ ...link, a: byId.get(link.source), b: byId.get(link.target) }))
+    .filter((link) => link.a && link.b);
 
-  for (let tick = 0; tick < 180; tick += 1) {
+  const ticks = nodes.length > 120 ? 45 : nodes.length > 60 ? 70 : 150;
+  const repel = dense ? 920 : 1450;
+  const idealLink = related ? 175 : dense ? 115 : 155;
+  const marginX = dense ? 58 : 88;
+  const marginY = dense ? 55 : 72;
+  for (let tick = 0; tick < ticks; tick += 1) {
     for (let i = 0; i < nodes.length; i += 1) {
       for (let j = i + 1; j < nodes.length; j += 1) {
         const a = nodes[i];
         const b = nodes[j];
         const dx = b.x - a.x || .1;
         const dy = b.y - a.y || .1;
-        const distanceSq = dx * dx + dy * dy;
-        const force = Math.min(1.8, 1400 / distanceSq);
+        const distanceSq = Math.max(30, dx * dx + dy * dy);
+        const force = Math.min(1.9, repel / distanceSq);
         const distance = Math.sqrt(distanceSq);
         a.vx -= (dx / distance) * force;
         a.vy -= (dy / distance) * force;
@@ -268,28 +486,38 @@ function drawGraph() {
       const dx = b.x - a.x;
       const dy = b.y - a.y;
       const distance = Math.sqrt(dx * dx + dy * dy) || 1;
-      const force = (distance - 155) * .005;
+      const force = (distance - idealLink) * .006;
       a.vx += (dx / distance) * force;
       a.vy += (dy / distance) * force;
       b.vx -= (dx / distance) * force;
       b.vy -= (dy / distance) * force;
     });
     nodes.forEach((node) => {
-      node.vx += (width / 2 - node.x) * .0008;
-      node.vy += (height / 2 - node.y) * .0008;
+      if (node.fixed) {
+        node.x = width / 2;
+        node.y = height / 2;
+        node.vx = 0;
+        node.vy = 0;
+        return;
+      }
+      node.vx += (width / 2 - node.x) * .0009;
+      node.vy += (height / 2 - node.y) * .0009;
       node.vx *= .86;
       node.vy *= .86;
-      node.x = clamp(node.x + node.vx, 90, width - 90);
-      node.y = clamp(node.y + node.vy, 70, height - 70);
+      node.x = clamp(node.x + node.vx, marginX, width - marginX);
+      node.y = clamp(node.y + node.vy, marginY, height - marginY);
     });
   }
 
   const ns = "http://www.w3.org/2000/svg";
+  const viewport = document.createElementNS(ns, "g");
+  viewport.setAttribute("class", "graph-viewport");
   const edgeLayer = document.createElementNS(ns, "g");
   edgeLayer.setAttribute("class", "graph-edges");
   const nodeLayer = document.createElementNS(ns, "g");
   nodeLayer.setAttribute("class", "graph-nodes");
-  svg.replaceChildren(edgeLayer, nodeLayer);
+  viewport.append(edgeLayer, nodeLayer);
+  svg.replaceChildren(viewport);
 
   links.forEach((link) => {
     const line = document.createElementNS(ns, "line");
@@ -311,19 +539,60 @@ function drawGraph() {
     });
   };
 
+  const transform = { x: 0, y: 0, scale: 1 };
+  const zoomLabel = document.querySelector("#graph-zoom-label");
+  const applyTransform = () => {
+    viewport.setAttribute("transform", `translate(${transform.x} ${transform.y}) scale(${transform.scale})`);
+    if (zoomLabel) zoomLabel.textContent = `${Math.round(transform.scale * 100)}%`;
+  };
+  const svgPoint = (clientX, clientY) => {
+    const rect = svg.getBoundingClientRect();
+    return {
+      x: (clientX - rect.left) * width / rect.width,
+      y: (clientY - rect.top) * height / rect.height
+    };
+  };
+  const graphPoint = (clientX, clientY) => {
+    const point = svgPoint(clientX, clientY);
+    return {
+      x: (point.x - transform.x) / transform.scale,
+      y: (point.y - transform.y) / transform.scale
+    };
+  };
+  const zoomAt = (nextScale, centerX = width / 2, centerY = height / 2) => {
+    const scale = clamp(nextScale, .35, 3.4);
+    const worldX = (centerX - transform.x) / transform.scale;
+    const worldY = (centerY - transform.y) / transform.scale;
+    transform.x = centerX - worldX * scale;
+    transform.y = centerY - worldY * scale;
+    transform.scale = scale;
+    applyTransform();
+  };
+  graphController = {
+    zoomBy(factor) { zoomAt(transform.scale * factor); },
+    fit() {
+      transform.x = 0;
+      transform.y = 0;
+      transform.scale = 1;
+      applyTransform();
+    }
+  };
+
   nodes.forEach((node) => {
     const group = document.createElementNS(ns, "g");
+    const current = node.id === state.activeId;
     group.dataset.id = node.id;
-    group.setAttribute("class", `graph-node ${node.type}${node.id === state.activeId ? " is-current" : ""}`);
+    group.setAttribute("class", `graph-node ${node.type}${current ? " is-current" : ""}`);
     group.setAttribute("role", "button");
     group.setAttribute("tabindex", "0");
     group.setAttribute("aria-label", `打开 ${node.title}`);
+    const coreRadius = node.type === "skill" ? (dense ? 18 : 23) : (dense ? 15 : 19);
     const halo = document.createElementNS(ns, "circle");
     halo.setAttribute("class", "node-halo");
-    halo.setAttribute("r", node.type === "skill" ? "31" : "27");
+    halo.setAttribute("r", String(coreRadius + 8));
     const circle = document.createElementNS(ns, "circle");
     circle.setAttribute("class", "node-core");
-    circle.setAttribute("r", node.type === "skill" ? "23" : "19");
+    circle.setAttribute("r", String(coreRadius));
     const mark = document.createElementNS(ns, "text");
     mark.setAttribute("class", "node-mark");
     mark.setAttribute("text-anchor", "middle");
@@ -332,8 +601,9 @@ function drawGraph() {
     const label = document.createElementNS(ns, "text");
     label.setAttribute("class", "node-label");
     label.setAttribute("text-anchor", "middle");
-    label.setAttribute("y", node.type === "skill" ? "45" : "41");
-    label.textContent = node.title.length > 18 ? `${node.title.slice(0, 18)}…` : node.title;
+    label.setAttribute("y", String(coreRadius + 22));
+    const labelLimit = dense ? 13 : 18;
+    label.textContent = node.title.length > labelLimit ? `${node.title.slice(0, labelLimit)}…` : node.title;
     const title = document.createElementNS(ns, "title");
     title.textContent = `${node.title}\n${node.description}`;
     group.append(halo, circle, mark, label, title);
@@ -342,6 +612,7 @@ function drawGraph() {
     let moved = false;
     let start = null;
     group.addEventListener("pointerdown", (event) => {
+      event.stopPropagation();
       moved = false;
       start = [event.clientX, event.clientY];
       group.setPointerCapture(event.pointerId);
@@ -349,14 +620,15 @@ function drawGraph() {
     });
     group.addEventListener("pointermove", (event) => {
       if (!group.hasPointerCapture(event.pointerId)) return;
-      const rect = svg.getBoundingClientRect();
-      node.x = clamp((event.clientX - rect.left) * width / rect.width, 70, width - 70);
-      node.y = clamp((event.clientY - rect.top) * height / rect.height, 55, height - 55);
+      const point = graphPoint(event.clientX, event.clientY);
+      node.x = clamp(point.x, 42, width - 42);
+      node.y = clamp(point.y, 42, height - 42);
+      node.fixed = false;
       moved ||= Math.hypot(event.clientX - start[0], event.clientY - start[1]) > 4;
       updatePositions();
     });
     group.addEventListener("pointerup", (event) => {
-      group.releasePointerCapture(event.pointerId);
+      if (group.hasPointerCapture(event.pointerId)) group.releasePointerCapture(event.pointerId);
       group.classList.remove("is-dragging");
       if (!moved) openItem(node.id);
     });
@@ -367,7 +639,36 @@ function drawGraph() {
       }
     });
   });
+
+  let panStart = null;
+  svg.addEventListener("pointerdown", (event) => {
+    if (event.target.closest?.(".graph-node")) return;
+    panStart = { clientX: event.clientX, clientY: event.clientY, x: transform.x, y: transform.y };
+    svg.setPointerCapture(event.pointerId);
+    canvas.classList.add("is-panning");
+  });
+  svg.addEventListener("pointermove", (event) => {
+    if (!panStart || !svg.hasPointerCapture(event.pointerId)) return;
+    const rect = svg.getBoundingClientRect();
+    transform.x = panStart.x + (event.clientX - panStart.clientX) * width / rect.width;
+    transform.y = panStart.y + (event.clientY - panStart.clientY) * height / rect.height;
+    applyTransform();
+  });
+  const finishPan = (event) => {
+    if (svg.hasPointerCapture(event.pointerId)) svg.releasePointerCapture(event.pointerId);
+    panStart = null;
+    canvas.classList.remove("is-panning");
+  };
+  svg.addEventListener("pointerup", finishPan);
+  svg.addEventListener("pointercancel", finishPan);
+  svg.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    const point = svgPoint(event.clientX, event.clientY);
+    zoomAt(transform.scale * (event.deltaY < 0 ? 1.12 : 1 / 1.12), point.x, point.y);
+  }, { passive: false });
+
   updatePositions();
+  applyTransform();
 }
 
 function clearSearch() {
@@ -432,7 +733,12 @@ async function init() {
     renderCategories();
     renderList();
 
-    if (location.hash === "#/graph") {
+    const graphRouteId = decodeURIComponent(location.hash.match(/^#\/graph\/(.+)$/)?.[1] || "");
+    if (location.hash === "#/graph" || graphRouteId) {
+      const active = state.items.find((item) => item.id === graphRouteId);
+      state.activeId = active?.id || null;
+      state.graphScope = active ? "related" : "all";
+      renderList();
       showGraph(false);
       return;
     }
@@ -451,8 +757,15 @@ elements.search.addEventListener("input", (event) => {
 });
 elements.viewButtons.forEach((button) => button.addEventListener("click", () => {
   if (button.dataset.view === "graph") showGraph();
-  else if (state.activeId) openItem(state.activeId);
+  else {
+    const item = state.items.find((candidate) => candidate.id === state.activeId) || state.items[0];
+    if (item) openItem(item.id);
+  }
 }));
+elements.outlineTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  closeMobileSidebar();
+});
 elements.menuButton.addEventListener("click", toggleSidebar);
 elements.backdrop.addEventListener("click", closeMobileSidebar);
 elements.resizeHandle.addEventListener("pointerdown", (event) => {
@@ -480,18 +793,43 @@ document.addEventListener("keydown", (event) => {
     event.preventDefault();
     elements.search.focus();
   }
+  if (event.key === "Escape" && state.graphExpanded) {
+    state.graphExpanded = false;
+    document.body.classList.remove("graph-expanded");
+    document.querySelector("#graph-canvas")?.classList.remove("is-expanded");
+    const expandButton = document.querySelector('[data-graph-action="expand"]');
+    if (expandButton) expandButton.textContent = "全屏放大";
+    requestAnimationFrame(drawGraph);
+    return;
+  }
   if (event.key === "Escape") closeMobileSidebar();
 });
 window.addEventListener("hashchange", () => {
-  if (location.hash === "#/graph" && state.view !== "graph") showGraph(false);
+  const graphRouteId = decodeURIComponent(location.hash.match(/^#\/graph\/(.+)$/)?.[1] || "");
+  if (location.hash === "#/graph" || graphRouteId) {
+    const active = state.items.find((item) => item.id === graphRouteId);
+    state.activeId = active?.id || null;
+    state.graphScope = active ? "related" : "all";
+    renderList();
+    showGraph(false);
+    return;
+  }
   const routeId = decodeURIComponent(location.hash.match(/^#\/item\/(.+)$/)?.[1] || "");
   if (routeId && (routeId !== state.activeId || state.view !== "reader")) openItem(routeId, false);
 });
+window.addEventListener("scroll", () => {
+  if (scrollFrame) return;
+  scrollFrame = requestAnimationFrame(() => {
+    scrollFrame = null;
+    updateReadingProgress();
+  });
+}, { passive: true });
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     if (state.view === "graph") drawGraph();
+    else updateReadingProgress();
   }, 120);
 });
 
