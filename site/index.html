@@ -45,18 +45,6 @@
           <nav class="category-tree" id="category-tree" aria-label="内容分类"></nav>
         </section>
 
-        <section class="outline-panel" id="outline-panel" aria-labelledby="outline-title" hidden>
-          <div class="outline-heading">
-            <span id="outline-title">本文目录</span>
-            <button id="outline-top" type="button">回到顶部</button>
-          </div>
-          <div class="reading-progress" aria-label="阅读进度">
-            <div><span id="reading-section">正文开始</span><b id="reading-progress-label">0%</b></div>
-            <span class="reading-progress-track"><i id="reading-progress-bar"></i></span>
-          </div>
-          <nav class="article-outline" id="article-outline" aria-label="本文目录"></nav>
-        </section>
-
         <div class="result-heading">
           <span id="result-label">最近更新</span>
           <span id="result-count">0 项</span>
@@ -78,12 +66,27 @@
           <div class="breadcrumb"><span>ARCHIVE</span><i>/</i><strong id="breadcrumb">INDEX</strong></div>
         </div>
 
-        <article class="document" id="document">
-          <div class="loading-state">
-            <span class="loading-number">01</span>
-            <p>正在打开知识库…</p>
-          </div>
-        </article>
+        <div class="content-layout" id="content-layout">
+          <article class="document" id="document">
+            <div class="loading-state">
+              <span class="loading-number">01</span>
+              <p>正在打开知识库…</p>
+            </div>
+          </article>
+
+          <aside class="outline-panel" id="outline-panel" aria-labelledby="outline-title" hidden>
+            <div class="outline-heading">
+              <span id="outline-title">本文目录</span>
+              <button id="outline-top" type="button">回到顶部</button>
+            </div>
+            <div class="reading-progress" aria-label="阅读进度">
+              <div><span id="reading-section">正文开始</span><b id="reading-progress-label">0%</b></div>
+              <span class="reading-progress-track"><i id="reading-progress-bar"></i></span>
+            </div>
+            <nav class="article-outline" id="article-outline" aria-label="本文目录"></nav>
+          </aside>
+        </div>
+        <button class="outline-toggle" id="outline-toggle" type="button" aria-controls="outline-panel" aria-expanded="false" hidden>目录</button>
       </main>
     </div>
     <div class="backdrop" id="backdrop"></div>

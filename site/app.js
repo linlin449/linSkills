@@ -14,6 +14,8 @@ const state = {
 
 const elements = {
   sidebar: document.querySelector("#sidebar"),
+  reader: document.querySelector("#reader"),
+  contentLayout: document.querySelector("#content-layout"),
   backdrop: document.querySelector("#backdrop"),
   menuButton: document.querySelector("#menu-button"),
   resizeHandle: document.querySelector("#resize-handle"),
@@ -22,6 +24,7 @@ const elements = {
   outlinePanel: document.querySelector("#outline-panel"),
   outline: document.querySelector("#article-outline"),
   outlineTop: document.querySelector("#outline-top"),
+  outlineToggle: document.querySelector("#outline-toggle"),
   readingSection: document.querySelector("#reading-section"),
   readingProgressLabel: document.querySelector("#reading-progress-label"),
   readingProgressBar: document.querySelector("#reading-progress-bar"),
@@ -35,6 +38,7 @@ const elements = {
 };
 
 const desktop = window.matchMedia("(min-width: 901px)");
+const compactOutline = window.matchMedia("(max-width: 1180px)");
 const siteUrl = (relativePath) => new URL(relativePath, window.location.href.split("#")[0]).href;
 const escapeHtml = (value = "") => String(value).replace(/[&<>"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char]);
 const typeLabel = (type) => type === "skill" ? "SKILL" : "NOTE";
@@ -154,6 +158,20 @@ function renderList() {
   document.querySelector("#clear-search")?.addEventListener("click", clearSearch);
 }
 
+function closeOutlineDrawer() {
+  elements.outlinePanel.classList.remove("is-open");
+  elements.outlineToggle.setAttribute("aria-expanded", "false");
+  elements.outlineToggle.textContent = "目录";
+}
+
+function updateOutlineVisibility() {
+  const visible = state.view === "reader" && state.outlineHeadings.length > 0;
+  elements.contentLayout.classList.toggle("has-outline", visible);
+  elements.outlinePanel.hidden = !visible;
+  elements.outlineToggle.hidden = !visible;
+  if (!visible) closeOutlineDrawer();
+}
+
 function setView(view) {
   state.view = view;
   elements.viewButtons.forEach((button) => {
@@ -162,7 +180,8 @@ function setView(view) {
     button.setAttribute("aria-pressed", String(active));
   });
   elements.document.classList.toggle("graph-document", view === "graph");
-  elements.outlinePanel.hidden = view !== "reader" || state.outlineHeadings.length === 0;
+  elements.contentLayout.classList.toggle("graph-layout", view === "graph");
+  updateOutlineVisibility();
   if (view !== "graph" && state.graphExpanded) {
     state.graphExpanded = false;
     document.body.classList.remove("graph-expanded");
@@ -173,10 +192,10 @@ function resetOutline() {
   state.outlineHeadings = [];
   state.activeHeadingId = null;
   elements.outline.innerHTML = "";
-  elements.outlinePanel.hidden = true;
   elements.readingSection.textContent = "正文开始";
   elements.readingProgressLabel.textContent = "0%";
   elements.readingProgressBar.style.width = "0%";
+  updateOutlineVisibility();
 }
 
 function makeHeadingId(text, index, used) {
@@ -205,7 +224,7 @@ function buildOutline() {
   });
   state.outlineHeadings = headings;
   state.activeHeadingId = null;
-  elements.outlinePanel.hidden = state.view !== "reader" || headings.length === 0;
+  updateOutlineVisibility();
   elements.outline.innerHTML = headings.map((heading, index) => `
     <button class="outline-link level-${heading.tagName.slice(1)}" data-outline-index="${index}" type="button">
       <span></span><b>${escapeHtml(heading.textContent.trim())}</b>
@@ -215,7 +234,7 @@ function buildOutline() {
     button.addEventListener("click", () => {
       const heading = state.outlineHeadings[Number(button.dataset.outlineIndex)];
       heading?.scrollIntoView({ behavior: "smooth", block: "start" });
-      closeMobileSidebar();
+      closeOutlineDrawer();
     });
   });
   updateReadingProgress();
@@ -687,6 +706,7 @@ function closeMobileSidebar() {
 }
 
 function toggleSidebar() {
+  closeOutlineDrawer();
   if (!desktop.matches) {
     const willOpen = !elements.sidebar.classList.contains("is-open");
     elements.sidebar.classList.toggle("is-open", willOpen);
@@ -764,7 +784,14 @@ elements.viewButtons.forEach((button) => button.addEventListener("click", () => 
 }));
 elements.outlineTop.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+  closeOutlineDrawer();
+});
+elements.outlineToggle.addEventListener("click", () => {
+  const willOpen = !elements.outlinePanel.classList.contains("is-open");
   closeMobileSidebar();
+  elements.outlinePanel.classList.toggle("is-open", willOpen);
+  elements.outlineToggle.setAttribute("aria-expanded", String(willOpen));
+  elements.outlineToggle.textContent = willOpen ? "关闭" : "目录";
 });
 elements.menuButton.addEventListener("click", toggleSidebar);
 elements.backdrop.addEventListener("click", closeMobileSidebar);
@@ -802,6 +829,10 @@ document.addEventListener("keydown", (event) => {
     requestAnimationFrame(drawGraph);
     return;
   }
+  if (event.key === "Escape" && elements.outlinePanel.classList.contains("is-open")) {
+    closeOutlineDrawer();
+    return;
+  }
   if (event.key === "Escape") closeMobileSidebar();
 });
 window.addEventListener("hashchange", () => {
@@ -828,6 +859,7 @@ let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
+    if (!compactOutline.matches) closeOutlineDrawer();
     if (state.view === "graph") drawGraph();
     else updateReadingProgress();
   }, 120);
