@@ -1,6 +1,6 @@
 ---
 title: 生成式软件工程（NJU 2026）课程笔记总览
-description: 蒋炎岩《生成式软件工程》前四讲的学习笔记导读：课程主线、四讲索引与学习建议。
+description: 蒋炎岩《生成式软件工程》前六讲的学习笔记导读：课程主线、六讲索引与学习建议。
 tags:
   - generative-software-engineering
   - course-notes
@@ -14,6 +14,8 @@ related:
   - knowledge:courses/gse-2026-nju/02-prompt-engineering
   - knowledge:courses/gse-2026-nju/03-software-repository-management
   - knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs
+  - knowledge:courses/gse-2026-nju/05-software-engineering-origins
+  - knowledge:courses/gse-2026-nju/06-requirements-architecture-1
 ---
 
 # 生成式软件工程（NJU 2026）课程笔记总览
@@ -32,7 +34,7 @@ related:
 
 蒋炎岩自己的答案是：人剩下的价值，是"驾驭 AI"——把脑子里模糊的想法，精确地翻译成 AI 能确定执行、而且能长期维护下去的软件。这个翻译能力，就是生成式软件工程要训练的东西。
 
-沿着这条主线，前三讲各走一步：
+沿着这条主线，各讲依次推进：
 
 | 讲 | 标题 | 在主线里的位置 | 一句话核心 |
 |----|------|----------------|-----------|
@@ -40,12 +42,14 @@ related:
 | 02 | 提示词工程 | 驾驭的手段 | 你和 AI 唯一的接口是"上下文"，所谓提示词工程其实是**上下文工程** |
 | 03 | 软件仓库管理 | 驾驭的载体 | 软件的最小单元是“快照”，用 Git 把项目组织成“由 atomic change 推进的一系列快照” |
 | 04 | 软件仓库管理（2） | 驾驭的进化 | 文件系统装不下关联，用 traceability 与 jj 的 change，为 Agent 时代重新设计版本控制 |
+| 05 | 软件工程的来龙去脉 | 驾驭的根源 | 回到"第一份软件从哪来"：软件危机、瀑布、契约、UML 的历史动机，看清哪些困难消失、哪些只是换了位置 |
+| 06 | 需求和架构（1） | 驾驭的杠杆 | 代码便宜以后，"要做什么"和"怎样组织系统承受变化"才是杠杆——选择表示方式（事件溯源 / CQRS / DDD） |
 
-四讲连起来是一个完整的闭环：**先信（AI 时代真的来了）→ 再会（知道怎么指挥它）→ 再稳（让它做出的东西能长期演化、可审计）→ 再进（为 Agent 时代重新设计版本控制）**。
+六讲连起来是一条完整的主线：**先信（AI 时代真的来了）→ 再会（知道怎么指挥它）→ 再稳（让产出能长期演化、可审计）→ 再进（为 Agent 时代重新设计版本控制）→ 再追（回到软件工程的来龙去脉）→ 再掌（用需求和架构撬动生产力）**。
 
 ## 贯穿全课的几个高频概念
 
-这些词在三讲里反复出现，先统一了再读笔记会轻松很多：
+这些词在多讲里反复出现，先统一了再读笔记会轻松很多：
 
 - **AI slop**：AI 生成的那种"一眼假"的东西——没有信息量、堆砌、套路化、缺乏真实细节。判断标准很简单：看完没学到任何新东西，就是 slop。
 - **vibe coding**：用自然语言指挥 AI 写代码、写产品，"凭感觉"快速把东西做出来，过程中人不需要写代码、甚至不细看代码。
@@ -62,9 +66,11 @@ related:
 3. **先动手做出来，再回头复盘理解。** 先用 AI 把东西搞出来，再反向搞懂它为什么这么做，比从零搭积木快得多。
 4. **把"假努力"换成"有效努力"。** 已知怎么干、AI 也干得好的事，放手让它干；把 100% 的时间留给"把不知道的东西弄明白"。
 
-## 四讲笔记索引
+## 六讲笔记索引
 
 - [01 欢迎来到未来](#/item/knowledge:courses/gse-2026-nju/01-welcome-to-the-future)
 - [02 提示词工程](#/item/knowledge:courses/gse-2026-nju/02-prompt-engineering)
 - [03 软件仓库管理](#/item/knowledge:courses/gse-2026-nju/03-software-repository-management)
 - [04 软件仓库管理（2）：Traceability 与 jj](#/item/knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs)
+- [05 软件工程的来龙去脉](#/item/knowledge:courses/gse-2026-nju/05-software-engineering-origins)
+- [06 需求和架构（1）](#/item/knowledge:courses/gse-2026-nju/06-requirements-architecture-1)

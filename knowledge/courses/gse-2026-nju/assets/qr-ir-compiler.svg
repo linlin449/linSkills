@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" viewBox="0 0 760 330" font-family="system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">两千行二维码程序：原来我们需要一个编译器</text>
+
+  <rect x="24" y="60" width="220" height="120" rx="12" fill="#eef2ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="134" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">前端：算法作者</text>
+  <text x="42" y="116" font-size="12.5" fill="#1f2328">用便于表达算法的形式</text>
+  <text x="42" y="134" font-size="12.5" fill="#1f2328">描述计算（循环在生成时</text>
+  <text x="42" y="152" font-size="12.5" fill="#1f2328">展开，字符串留作符号输入）</text>
+
+  <rect x="280" y="60" width="200" height="120" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="380" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">中间表示 IR</text>
+  <text x="298" y="116" font-size="12" fill="#1f2328">输入 text / 常量 / 异或</text>
+  <text x="298" y="134" font-size="12" fill="#1f2328">查表 / 条件选择节点</text>
+  <text x="298" y="152" font-size="12" fill="#1f2328">边记录数据依赖</text>
+
+  <rect x="516" y="60" width="220" height="120" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="626" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">后端：翻译到目标环境</text>
+  <text x="534" y="116" font-size="12.5" fill="#1f2328">Python 程序（用于验证）</text>
+  <text x="534" y="138" font-size="12.5" fill="#1f2328">Excel 公式（处理括号、</text>
+  <text x="534" y="156" font-size="12.5" fill="#1f2328">单元格引用、版本兼容）</text>
+
+  <line x1="244" y1="120" x2="278" y2="120" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="120" x2="514" y2="120" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="24" y="200" width="712" height="108" rx="10" fill="#f8fafc" stroke="#d9dce1"/>
+  <text x="42" y="224" font-size="13" font-weight="700" fill="#1f2328">一次需求变化，主要落到负责它的模块</text>
+  <text x="42" y="248" font-size="12.5" fill="#1f2328">算法只知道输入 text；绑定模块知道它在哪个单元格；布局模块分配中间结果位置；</text>
+  <text x="42" y="268" font-size="12.5" fill="#1f2328">版本兼容由目标能力与公式生成处理；性能优化（常量折叠、共享纯计算）也有明确位置。</text>
+  <text x="42" y="292" font-size="12.5" fill="#047857">验证：同一输入，比较 Python 结果与 Excel 实际重算结果，必要时逐个中间值。</text>
+</svg>

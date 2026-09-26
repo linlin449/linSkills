@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" viewBox="0 0 760 330" font-family="system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">契约式设计：接口的语义 = 双方各自承诺什么</text>
+
+  <rect x="24" y="60" width="250" height="120" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
+  <text x="42" y="86" font-size="14" font-weight="700" fill="#1f2328">调用者</text>
+  <rect x="42" y="98" width="214" height="66" rx="8" fill="#eef2ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="56" y="120" font-size="13" font-weight="600" fill="#1f2328">前置条件（调用者保证）</text>
+  <text x="56" y="142" font-size="12.5" fill="#1f2328">amount &gt; 0</text>
+  <text x="56" y="158" font-size="12.5" fill="#1f2328">amount &lt;= balance</text>
+
+  <rect x="486" y="60" width="250" height="120" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
+  <text x="504" y="86" font-size="14" font-weight="700" fill="#1f2328">实现者</text>
+  <rect x="504" y="98" width="214" height="66" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="518" y="120" font-size="13" font-weight="600" fill="#1f2328">后置条件（实现者保证）</text>
+  <text x="518" y="142" font-size="12.5" fill="#1f2328">balance = old balance - amount</text>
+  <text x="518" y="158" font-size="12.5" fill="#1f2328">（余额不足属于前置条件之外）</text>
+
+  <line x1="274" y1="120" x2="486" y2="120" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="380" y="112" text-anchor="middle" font-size="12.5" font-weight="600" fill="#57606a">调用</text>
+
+  <rect x="24" y="200" width="712" height="52" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="42" y="222" font-size="13" font-weight="700" fill="#1f2328">类不变量（双方在稳定状态下共同维护）</text>
+  <text x="42" y="241" font-size="13" fill="#1f2328">balance &gt;= 0 —— 每次对外可见的状态都必须成立</text>
+
+  <text x="42" y="282" font-size="12.5" fill="#57606a">满足前置条件，就有权依赖后置条件；实现怎么存余额，调用者不必知道。</text>
+  <text x="42" y="302" font-size="12.5" fill="#57606a">把契约写进语言后，工具就能在运行时检查，或用 Dafny / Verus 做静态验证。</text>
+</svg>
