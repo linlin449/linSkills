@@ -1,13 +1,13 @@
 ---
 title: 生成式软件工程（NJU 2026）课程笔记总览
-description: 蒋炎岩《生成式软件工程》前六讲的学习笔记导读：课程主线、六讲索引与学习建议。
+description: 蒋炎岩《生成式软件工程》前七讲的学习笔记导读：课程主线、七讲索引与学习建议。
 tags:
   - generative-software-engineering
   - course-notes
   - ai
   - software-engineering
   - agent
-updated: 2026-09-14
+updated: 2026-10-01
 status: active
 related:
   - knowledge:courses/gse-2026-nju/01-welcome-to-the-future
@@ -16,6 +16,7 @@ related:
   - knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs
   - knowledge:courses/gse-2026-nju/05-software-engineering-origins
   - knowledge:courses/gse-2026-nju/06-requirements-architecture-1
+  - knowledge:courses/gse-2026-nju/07-requirements-architecture-2
 ---
 
 # 生成式软件工程（NJU 2026）课程笔记总览
@@ -26,7 +27,7 @@ related:
 - 视频：<https://space.bilibili.com/202224425>（合集"2026 南京大学《生成式软件工程》"）
 - 字幕来源：GitHub 仓库 NinZeige/NJU-2026-GSE-Captions（CC BY-NC 4.0）
 
-> 本文档是本人整理的学习笔记，是对课程字幕的**分析、总结与转述**，不是字幕原文转载。原文权利归课程作者所有。
+> 本系列是对课程材料的**分析、总结与转述**，不是原文转载。材料包括已有字幕整理与官方讲义；第七讲列有具体来源和核对日期。原材料权利归课程作者所有。
 
 ## 这门课到底在讲什么
 
@@ -44,8 +45,9 @@ related:
 | 04 | 软件仓库管理（2） | 驾驭的进化 | 文件系统装不下关联，用 traceability 与 jj 的 change，为 Agent 时代重新设计版本控制 |
 | 05 | 软件工程的来龙去脉 | 驾驭的根源 | 回到"第一份软件从哪来"：软件危机、瀑布、契约、UML 的历史动机，看清哪些困难消失、哪些只是换了位置 |
 | 06 | 需求和架构（1） | 驾驭的杠杆 | 代码便宜以后，"要做什么"和"怎样组织系统承受变化"才是杠杆——选择表示方式（事件溯源 / CQRS / DDD） |
+| 07 | 需求和架构（2） | 驾驭的结构 | 设计可扩展的解空间，保存事实并显式表达计算依赖，让状态同步变成可验证的计算 |
 
-六讲连起来是一条完整的主线：**先信（AI 时代真的来了）→ 再会（知道怎么指挥它）→ 再稳（让产出能长期演化、可审计）→ 再进（为 Agent 时代重新设计版本控制）→ 再追（回到软件工程的来龙去脉）→ 再掌（用需求和架构撬动生产力）**。
+七讲连起来是一条完整的主线：**先信（AI 时代真的来了）→ 再会（知道怎么指挥它）→ 再稳（让产出能长期演化、可审计）→ 再进（为 Agent 时代重新设计版本控制）→ 再追（回到软件工程的来龙去脉）→ 再掌（用需求和架构撬动生产力）→ 再构（让系统可扩展、结果可追溯）**。
 
 ## 贯穿全课的几个高频概念
 
@@ -58,6 +60,8 @@ related:
 - **意图→规格→实现（intention → spec → implementation）**：软件从"我想做个东西"到"它到底长什么样"再到"具体代码"，中间有两道巨大的 gap。软件工程失败的本质，就是这两道翻译翻错了。
 - **算力换智力**：把一个大问题拆成很多小问题、让多个 agent 分头算、再汇总，用更多 token 换更高智力。
 - **惊人的注意力**：对细节保持敏感——看到一个东西先自己想一遍方案，再对比别人的方案，判断它是 slop 还是惊喜。
+- **本质复杂性 / 附带复杂性**：前者是业务自带的困难，后者是实现方式额外制造的麻烦；架构分解前者、减少后者。
+- **事实依据与派生状态（source of truth / derived state）**：保存事实、决定及规则版本，让可以推导的结果沿明确依赖计算出来；缓存要能追溯、失效和重建。
 
 ## 学习建议（来自课程本身）
 
@@ -66,7 +70,7 @@ related:
 3. **先动手做出来，再回头复盘理解。** 先用 AI 把东西搞出来，再反向搞懂它为什么这么做，比从零搭积木快得多。
 4. **把"假努力"换成"有效努力"。** 已知怎么干、AI 也干得好的事，放手让它干；把 100% 的时间留给"把不知道的东西弄明白"。
 
-## 六讲笔记索引
+## 七讲笔记索引
 
 - [01 欢迎来到未来](#/item/knowledge:courses/gse-2026-nju/01-welcome-to-the-future)
 - [02 提示词工程](#/item/knowledge:courses/gse-2026-nju/02-prompt-engineering)
@@ -74,3 +78,4 @@ related:
 - [04 软件仓库管理（2）：Traceability 与 jj](#/item/knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs)
 - [05 软件工程的来龙去脉](#/item/knowledge:courses/gse-2026-nju/05-software-engineering-origins)
 - [06 需求和架构（1）](#/item/knowledge:courses/gse-2026-nju/06-requirements-architecture-1)
+- [07 需求和架构（2）](#/item/knowledge:courses/gse-2026-nju/07-requirements-architecture-2)

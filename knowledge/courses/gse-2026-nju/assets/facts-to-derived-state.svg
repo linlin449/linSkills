@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="400" viewBox="0 0 760 400" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <title id="title">多份独立状态与事实驱动的派生计算</title>
+  <desc id="desc">左侧成绩、学分和审核结果各自修改，容易漏同步；右侧保存事实与规则版本，从通过课程计算分类学分与课程条件，并可以检查来源和重新计算。课程条件不等于全部毕业条件。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#10b981"/></marker></defs>
+  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">少维护一份独立状态，多表达一条计算依赖</text>
+  <rect x="20" y="56" width="340" height="318" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
+  <text x="40" y="84" font-size="15" font-weight="700" fill="#1f2328">每个结果各自修改</text>
+  <rect x="54" y="105" width="272" height="44" rx="8" fill="#eef2ff" stroke="#2563eb"/>
+  <text x="190" y="132" text-anchor="middle" font-size="14" fill="#1f2328">成绩更正：不通过 → 通过</text>
+  <path d="M190 151V187M100 187H280M100 187V202M190 187V202M280 187V202" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="54" y="204" width="82" height="50" rx="8" fill="#fef2f2" stroke="#dc2626"/>
+  <rect x="149" y="204" width="82" height="50" rx="8" fill="#fef2f2" stroke="#dc2626"/>
+  <rect x="244" y="204" width="82" height="50" rx="8" fill="#fef2f2" stroke="#dc2626"/>
+  <text x="95" y="234" text-anchor="middle" font-size="13" fill="#b91c1c">课程列表</text>
+  <text x="190" y="234" text-anchor="middle" font-size="13" fill="#b91c1c">分类学分</text>
+  <text x="285" y="234" text-anchor="middle" font-size="13" fill="#b91c1c">审核字段</text>
+  <text x="40" y="291" font-size="13" fill="#b91c1c">依靠人记住：这里改了，那里也要改</text>
+  <text x="40" y="316" font-size="13" fill="#57606a">漏一处，就出现互相矛盾的“现在”</text>
+  <text x="40" y="350" font-size="12.5" fill="#57606a">复杂性：多份状态怎样始终一致？</text>
+  <rect x="380" y="56" width="360" height="318" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
+  <text x="400" y="84" font-size="15" font-weight="700" fill="#1f2328">保存依据，显式派生结果</text>
+  <rect x="414" y="105" width="292" height="44" rx="8" fill="#eef2ff" stroke="#2563eb"/>
+  <text x="560" y="132" text-anchor="middle" font-size="13" fill="#1f2328">成绩、更正、认定、批准 + 规则版本</text>
+  <path d="M560 151V169" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="434" y="172" width="252" height="36" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+  <text x="560" y="195" text-anchor="middle" font-size="13" fill="#1f2328">已通过课程（计算结果）</text>
+  <path d="M560 210V225" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="434" y="228" width="252" height="36" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+  <text x="560" y="251" text-anchor="middle" font-size="13" fill="#1f2328">去重、替代与分类后的学分</text>
+  <path d="M560 266V281" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="434" y="284" width="252" height="36" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+  <text x="560" y="307" text-anchor="middle" font-size="13" fill="#1f2328">课程条件（不是全部毕业条件）</text>
+  <text x="400" y="350" font-size="12.5" fill="#047857">复杂性：计算是否正确、失效后怎样重算？</text>
+</svg>

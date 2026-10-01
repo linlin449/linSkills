@@ -17,6 +17,7 @@ related:
   - knowledge:courses/gse-2026-nju/overview
   - knowledge:courses/gse-2026-nju/05-software-engineering-origins
   - knowledge:courses/gse-2026-nju/04-traceability-jj-agent-vcs
+  - knowledge:courses/gse-2026-nju/07-requirements-architecture-2
 ---
 
 # 生成式软件工程 06 · 需求和架构（1）
@@ -220,3 +221,5 @@ for (uint64_t step = 1; step <= total; step++) {
 7. **区分"当时发生了什么"与"按新规则重算"**，恢复历史不能改写已经发生的事实。
 8. **CQRS** 分开写模型与读模型；**DDD** 用统一语言和限界上下文让业务概念决定边界。
 9. **时间双轨、模块边界围绕变化点、逐步改进旧系统**——让下一次需求变化有地方可去。
+
+继续阅读：[第七讲 · 需求和架构（2）](#/item/knowledge:courses/gse-2026-nju/07-requirements-architecture-2)，从选择表示方式继续走到可扩展的解空间与事实驱动的计算依赖。

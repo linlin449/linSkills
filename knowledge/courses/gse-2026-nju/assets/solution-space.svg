@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <title id="title">一个固定的解与可扩展的解空间</title>
+  <desc id="desc">左侧把所有业务写成一个固定流程，改变需求需要改内部；右侧固定共同接口与契约，允许现有和未来组件在同一边界下组合。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#10b981"/></marker></defs>
+  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">架构不仅选一个解，也规定未来怎样继续创造</text>
+  <rect x="20" y="56" width="340" height="280" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
+  <text x="40" y="86" font-size="15" font-weight="700" fill="#1f2328">一个固定的解</text>
+  <rect x="48" y="118" width="284" height="80" rx="10" fill="#eef2ff" stroke="#2563eb"/>
+  <text x="190" y="151" text-anchor="middle" font-size="14" fill="#1f2328">输入、规则、展示绑在一起</text>
+  <text x="190" y="176" text-anchor="middle" font-size="13" fill="#57606a">当前需求可以运行</text>
+  <path d="M190 204V244" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="190" y="269" text-anchor="middle" font-size="14" fill="#b91c1c">新增入口 → 再改内部流程</text>
+  <text x="40" y="310" font-size="12.5" fill="#57606a">问题不是小，而是变化没有明确的归属</text>
+  <rect x="380" y="56" width="360" height="280" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
+  <text x="400" y="86" font-size="15" font-weight="700" fill="#1f2328">有规则的解空间</text>
+  <rect x="408" y="110" width="304" height="54" rx="10" fill="#eef2ff" stroke="#2563eb"/>
+  <text x="560" y="143" text-anchor="middle" font-size="14" fill="#1f2328">共同接口、格式与契约</text>
+  <path d="M560 166V192M450 192H670M450 192V208M560 192V208M670 192V208" fill="none" stroke="#10b981" stroke-width="2"/>
+  <rect x="410" y="210" width="88" height="50" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+  <rect x="516" y="210" width="88" height="50" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+  <rect x="622" y="210" width="88" height="50" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-dasharray="5 4"/>
+  <text x="454" y="240" text-anchor="middle" font-size="13" fill="#1f2328">现有组件</text>
+  <text x="560" y="240" text-anchor="middle" font-size="13" fill="#1f2328">替换实现</text>
+  <text x="666" y="240" text-anchor="middle" font-size="13" fill="#047857">未来扩展</text>
+  <text x="400" y="291" font-size="12.5" fill="#047857">固定合作规则，开放有价值的变化</text>
+  <text x="400" y="313" font-size="12.5" fill="#57606a">不是为所有想象中的需求提前造框架</text>
+</svg>
