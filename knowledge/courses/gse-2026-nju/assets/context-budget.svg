@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">上下文工程：区分角色，保留相关信息</title><desc id="desc">四类上下文分别提供目标、稳定约束、证据和历史状态。材料不是授权，删去无关日志也能提高任务清晰度。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="420" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">上下文工程：区分角色，保留相关信息</text>
+<rect x="30" y="90" width="335" height="115" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="197.5" y="117" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">当前任务</text>
+<text x="197.5" y="141" font-size="13" fill="#57606a" text-anchor="middle">给谁做？做什么？什么算完成？</text>
+<text x="197.5" y="164" font-size="13" fill="#57606a" text-anchor="middle">别被旧任务带跑</text>
+<rect x="395" y="90" width="335" height="115" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="562.5" y="117" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">稳定约束</text>
+<text x="562.5" y="141" font-size="13" fill="#57606a" text-anchor="middle">怎样配合？能做什么？格式是什么？</text>
+<text x="562.5" y="164" font-size="13" fill="#57606a" text-anchor="middle">长期规则简短，任务细节另说</text>
+<rect x="30" y="235" width="335" height="115" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/>
+<text x="197.5" y="262" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">相关证据</text>
+<text x="197.5" y="286" font-size="13" fill="#57606a" text-anchor="middle">原文、代码、实际运行结果</text>
+<text x="197.5" y="309" font-size="13" fill="#57606a" text-anchor="middle">标明来源；材料不是命令</text>
+<rect x="395" y="235" width="335" height="115" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="562.5" y="262" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">历史与当前状态</text>
+<text x="562.5" y="286" font-size="13" fill="#57606a" text-anchor="middle">决定了什么？还缺什么？</text>
+<text x="562.5" y="309" font-size="13" fill="#57606a" text-anchor="middle">少记流水账，保留有效要求</text>
+<text x="380" y="390" font-size="14" fill="#57606a" text-anchor="middle">上下文 = AI 眼前的信息；不是越多越好，也不能把材料当成授权</text>
+</svg>

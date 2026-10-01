@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="410" viewBox="0 0 760 410" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">统分：让每个环节做它擅长的事</title><desc id="desc">照片由模型识别，人确认小分，再由确定性程序求和，生成表格并回查。算术正确不能补救识别错误。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="410" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">统分：让每个环节做它擅长的事</text>
+<rect x="30" y="100" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="130.0" y="127" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">① 原始照片</text>
+<text x="130.0" y="151" font-size="13" fill="#57606a" text-anchor="middle">保留照片以便核对</text>
+<rect x="280" y="100" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="380.0" y="127" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">② 模型识别</text>
+<text x="380.0" y="151" font-size="13" fill="#57606a" text-anchor="middle">姓名、学号、各题小分</text>
+<rect x="530" y="100" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="630.0" y="127" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">③ 人工确认</text>
+<text x="630.0" y="151" font-size="13" fill="#57606a" text-anchor="middle">检查漏项、错位、误识别</text>
+<path d="M232 143H275" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M482 143H525" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M630 187V239" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<rect x="530" y="245" width="200" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="630.0" y="272" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">④ 程序求和</text>
+<text x="630.0" y="296" font-size="13" fill="#57606a" text-anchor="middle">读取数字，按规则相加</text>
+<rect x="280" y="245" width="200" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="380.0" y="272" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">⑤ 生成表格</text>
+<text x="380.0" y="296" font-size="13" fill="#57606a" text-anchor="middle">把姓名与分数填到正确列</text>
+<rect x="30" y="245" width="200" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="130.0" y="272" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">⑥ 回查与交付</text>
+<text x="130.0" y="296" font-size="13" fill="#57606a" text-anchor="middle">对照输入、算式与结果</text>
+<path d="M528 288H486" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<path d="M278 288H236" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<text x="380" y="380" font-size="14" fill="#57606a" text-anchor="middle">算术没错，不代表分数读对了；不要直接执行 AI 返回的陌生代码</text>
+</svg>

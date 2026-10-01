@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="435" viewBox="0 0 760 435" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">CQRS：办理选课与查看课表，分开负责</title><desc id="desc">命令进入写模型，维护资格与容量约束并持久化事实。读模型依据数据构建查询视图。可同步或异步更新，事件溯源不是 CQRS 的必选条件。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="435" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">CQRS：办理选课与查看课表，分开负责</text>
+<rect x="20" y="110" width="160" height="100" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="100.0" y="137" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">命令：办一件事</text>
+<text x="100.0" y="161" font-size="13" fill="#57606a" text-anchor="middle">申请选课</text>
+<text x="100.0" y="184" font-size="13" fill="#57606a" text-anchor="middle">要求系统作决定</text>
+<rect x="220" y="110" width="240" height="100" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="340.0" y="137" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">写模型：处理操作</text>
+<text x="340.0" y="161" font-size="13" fill="#57606a" text-anchor="middle">检查资格、名额、时间</text>
+<text x="340.0" y="184" font-size="13" fill="#57606a" text-anchor="middle">决定接受或拒绝</text>
+<rect x="510" y="110" width="225" height="100" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="622.5" y="137" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">查询：看信息</text>
+<text x="622.5" y="161" font-size="13" fill="#57606a" text-anchor="middle">学生看课表，教师看名单</text>
+<text x="622.5" y="184" font-size="13" fill="#57606a" text-anchor="middle">各取需要的结果</text>
+<rect x="220" y="275" width="240" height="100" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="340.0" y="302" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">保存处理结果</text>
+<text x="340.0" y="326" font-size="13" fill="#57606a" text-anchor="middle">可以保存事件记录</text>
+<text x="340.0" y="349" font-size="13" fill="#57606a" text-anchor="middle">但不是必须这样存</text>
+<rect x="510" y="275" width="225" height="100" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="622.5" y="302" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">读模型：整理查询结果</text>
+<text x="622.5" y="326" font-size="13" fill="#57606a" text-anchor="middle">准备课表、名单等数据</text>
+<text x="622.5" y="349" font-size="13" fill="#57606a" text-anchor="middle">不另作一次选课决定</text>
+<path d="M182 160H214" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M340 212V269" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<path d="M462 325H504" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<path d="M605 212V269" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M650 273V216" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<text x="530" y="244" font-size="13" fill="#2563eb" text-anchor="start">查询</text>
+<text x="663" y="244" font-size="13" fill="#059669" text-anchor="start">返回</text>
+<text x="480" y="306" font-size="13" fill="#059669" text-anchor="middle">更新</text>
+<text x="380" y="420" font-size="14" fill="#57606a" text-anchor="middle">查询结果可以稍后更新，但不能让两个人同时抢到最后一个名额</text>
+</svg>

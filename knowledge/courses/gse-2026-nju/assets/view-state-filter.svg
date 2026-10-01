@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="370" viewBox="0 0 760 370" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <title id="title">保存课程列表与搜索词，可见课程由它们计算</title>
+  <desc id="desc">全部课程包含高数、物理与英语，搜索词为物理时可见列表显示物理。搜索词变成英语，重新筛选即可得到英语，不需要独立修改三份状态。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker></defs>
+  <rect width="760" height="370" fill="#fff"/>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">搜索词变了，让可见列表重新算出来</text>
+  <rect x="30" y="88" width="280" height="90" rx="12" fill="#eef2ff" stroke="#2563eb"/>
+  <text x="170" y="119" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">输入一：全部课程</text>
+  <text x="170" y="151" text-anchor="middle" font-size="14" fill="#57606a">高数、物理、英语</text>
+  <rect x="450" y="88" width="280" height="90" rx="12" fill="#eef2ff" stroke="#2563eb"/>
+  <text x="590" y="119" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">输入二：当前搜索词</text>
+  <text x="590" y="151" text-anchor="middle" font-size="14" fill="#57606a">物理</text>
+  <path d="M170 181L310 235M590 181L450 235" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="380" y="214" text-anchor="middle" font-size="13" fill="#059669">根据两个输入筛选</text>
+  <rect x="240" y="240" width="280" height="80" rx="12" fill="#ecfdf5" stroke="#059669"/>
+  <text x="380" y="269" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">计算结果：可见课程</text>
+  <text x="380" y="300" text-anchor="middle" font-size="14" fill="#57606a">只显示“物理”</text>
+  <text x="380" y="354" text-anchor="middle" font-size="14" fill="#57606a">搜索词换成“英语”，重新筛选；不另存一份可独立修改的结果</text>
+</svg>

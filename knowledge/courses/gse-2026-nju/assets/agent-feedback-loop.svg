@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="430" viewBox="0 0 760 430" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">Agent：提出动作、执行工具、观察反馈</title><desc id="desc">模型通过运行系统调用工具，工具返回真实环境结果，结果进入下一轮上下文。权限检查与停止条件也是运行流程的一部分。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="430" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">Agent：提出动作、执行工具、观察反馈</text>
+<text x="380" y="73" font-size="14" fill="#57606a" text-anchor="middle">目标、约束与验收标准，决定循环要往哪里走</text>
+<rect x="30" y="100" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="130.0" y="127" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">模型</text>
+<text x="130.0" y="151" font-size="13" fill="#57606a" text-anchor="middle">提出下一步动作</text>
+<rect x="280" y="100" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="380.0" y="127" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">执行器（Harness）</text>
+<text x="380.0" y="151" font-size="13" fill="#57606a" text-anchor="middle">检查权限，安排工具</text>
+<rect x="530" y="100" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="630.0" y="127" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">工具与环境</text>
+<text x="630.0" y="151" font-size="13" fill="#57606a" text-anchor="middle">实际执行读写或命令</text>
+<path d="M232 143H275" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M482 143H525" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<rect x="530" y="260" width="200" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="630.0" y="287" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">观察结果</text>
+<text x="630.0" y="311" font-size="13" fill="#57606a" text-anchor="middle">成功、报错、外部状态</text>
+<rect x="30" y="260" width="200" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="130.0" y="287" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">更新上下文</text>
+<text x="130.0" y="311" font-size="13" fill="#57606a" text-anchor="middle">证据进入下一轮判断</text>
+<path d="M630 187V254" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<path d="M528 303H236" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<path d="M130 258V191" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<text x="380" y="290" font-size="13" fill="#059669" text-anchor="middle">核对结果，不只听“完成了”</text>
+<text x="380" y="397" font-size="14" fill="#57606a" text-anchor="middle">无证据时报告缺口；高风险动作先获得授权</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="410" viewBox="0 0 760 410" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">Git：工作区、暂存区、提交与远端不同</title><desc id="desc">add 暂存当时内容，commit 保存暂存快照，push 推送已提交历史。两个 diff 分别比较工作区与暂存区、暂存区与当前提交。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="410" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">Git：工作区、暂存区、提交与远端不同</text>
+<rect x="20" y="130" width="165" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="102.5" y="157" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">工作区</text>
+<text x="102.5" y="181" font-size="13" fill="#57606a" text-anchor="middle">正在编辑的文件</text>
+<rect x="205" y="130" width="165" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="287.5" y="157" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">暂存区</text>
+<text x="287.5" y="181" font-size="13" fill="#57606a" text-anchor="middle">下一次提交的内容</text>
+<rect x="390" y="130" width="165" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="472.5" y="157" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">提交历史</text>
+<text x="472.5" y="181" font-size="13" fill="#57606a" text-anchor="middle">已记录的快照</text>
+<rect x="575" y="130" width="165" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="657.5" y="157" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">远端仓库</text>
+<text x="657.5" y="181" font-size="13" fill="#57606a" text-anchor="middle">已推送的历史</text>
+<path d="M187 173H201" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<text x="194" y="113" font-size="13" fill="#2563eb" text-anchor="middle">add</text>
+<path d="M372 173H386" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<text x="379" y="113" font-size="13" fill="#2563eb" text-anchor="middle">commit</text>
+<path d="M557 173H571" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<text x="564" y="113" font-size="13" fill="#2563eb" text-anchor="middle">push</text>
+<path d="M100 218V255H286V220" fill="none" stroke="#57606a" stroke-width="2" marker-end="url(#gray)"/>
+<text x="193" y="281" font-size="14" fill="#1f2328" text-anchor="middle">git diff</text>
+<path d="M287 218V305H472V220" fill="none" stroke="#57606a" stroke-width="2" marker-end="url(#gray)"/>
+<text x="380" y="332" font-size="14" fill="#1f2328" text-anchor="middle">git diff --cached</text>
+<text x="380" y="382" font-size="14" fill="#57606a" text-anchor="middle">add 后再改：后面的改动要再 add；push 不会上传尚未提交的编辑</text>
+</svg>

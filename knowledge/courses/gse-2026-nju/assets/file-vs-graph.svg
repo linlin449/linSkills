@@ -7,30 +7,30 @@
       <path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/>
     </marker>
   </defs>
-  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">文件系统丢掉了「关联」：软件应该是一个有环的图</text>
+  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">文件夹管分类，需求、代码和测试还需要联系</text>
 
   <rect x="20" y="52" width="350" height="320" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
-  <text x="38" y="82" font-size="15" font-weight="700" fill="#1f2328">现在的文件系统：一棵树</text>
+  <text x="38" y="82" font-size="15" font-weight="700" fill="#1f2328">目录层级：帮助分类</text>
   <text x="38" y="124" font-size="13.5" fill="#344054" font-family="'JetBrains Mono',ui-monospace,monospace">project/</text>
   <text x="38" y="150" font-size="13.5" fill="#344054" font-family="'JetBrains Mono',ui-monospace,monospace">├─ README.md</text>
   <text x="38" y="176" font-size="13.5" fill="#344054" font-family="'JetBrains Mono',ui-monospace,monospace">├─ docs/</text>
-  <text x="54" y="202" font-size="13.5" fill="#dc2626" font-family="'JetBrains Mono',ui-monospace,monospace">└─ 设计.md：写的是 linked list</text>
+  <text x="54" y="202" font-size="13.5" fill="#dc2626" font-family="'JetBrains Mono',ui-monospace,monospace">└─ 设计.md：写的是旧方案</text>
   <text x="38" y="228" font-size="13.5" fill="#344054" font-family="'JetBrains Mono',ui-monospace,monospace">└─ src/</text>
-  <text x="54" y="254" font-size="13.5" fill="#dc2626" font-family="'JetBrains Mono',ui-monospace,monospace">└─ list.c：其实早改成 tree</text>
+  <text x="54" y="254" font-size="13.5" fill="#dc2626" font-family="'JetBrains Mono',ui-monospace,monospace">└─ 实现.py：已经改成新方案</text>
   <line x1="210" y1="198" x2="210" y2="250" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4" marker-start="url(#arrRed)" marker-end="url(#arrRed)"/>
-  <text x="224" y="228" font-size="12.5" fill="#dc2626" font-weight="600">这条联系，存不下</text>
-  <text x="38" y="338" font-size="12.5" fill="#57606a">改动一多，文档和代码越离越远 → 技术债</text>
+  <text x="224" y="228" font-size="12.5" fill="#dc2626" font-weight="600">这条联系，没人维护</text>
+  <text x="38" y="338" font-size="12.5" fill="#57606a">目录位置不会自动维护说明与实现的联系</text>
 
   <rect x="390" y="52" width="350" height="320" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
-  <text x="408" y="82" font-size="15" font-weight="700" fill="#1f2328">理想：有环的图（repo.db）</text>
+  <text x="408" y="82" font-size="15" font-weight="700" fill="#1f2328">显式记录制品之间的联系</text>
 
   <rect x="520" y="110" width="120" height="58" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
   <text x="580" y="136" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2328">文档</text>
-  <text x="580" y="156" text-anchor="middle" font-size="11" fill="#57606a">用 linked list</text>
+  <text x="580" y="156" text-anchor="middle" font-size="11" fill="#57606a">描述当前方案</text>
 
   <rect x="430" y="260" width="110" height="58" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
   <text x="485" y="286" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2328">代码</text>
-  <text x="485" y="306" text-anchor="middle" font-size="11" fill="#57606a">list.c</text>
+  <text x="485" y="306" text-anchor="middle" font-size="11" fill="#57606a">实现.py</text>
 
   <rect x="650" y="260" width="90" height="58" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
   <text x="695" y="286" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2328">测试</text>
@@ -39,11 +39,10 @@
   <line x1="565" y1="168" x2="497" y2="256" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
   <text x="508" y="205" font-size="11.5" fill="#64748b">实现了</text>
   <line x1="600" y1="168" x2="686" y2="256" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
-  <text x="664" y="205" font-size="11.5" fill="#64748b">规定测试</text>
+  <text x="664" y="205" font-size="11.5" fill="#64748b">要求检查</text>
   <line x1="650" y1="289" x2="544" y2="289" stroke="#64748b" stroke-width="1.8" marker-end="url(#arr)"/>
   <text x="584" y="279" font-size="11.5" fill="#64748b">测试</text>
   <path d="M 712 262 C 748 232 704 150 642 148" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrRed)"/>
-  <text x="722" y="200" font-size="11.5" fill="#dc2626" font-weight="600">环</text>
 
-  <text x="408" y="338" font-size="12.5" fill="#57606a">文件系统放不下环；数据库放得下，但人读不懂，交给 AI。</text>
+  <text x="408" y="338" font-size="12.5" fill="#57606a">编号、链接或数据库能保存关系，关键是更新。</text>
 </svg>

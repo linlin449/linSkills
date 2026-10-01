@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="425" viewBox="0 0 760 425" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">给项目留存档，不必每次复制全部内容</title><desc id="desc">两个提交引用不同根目录树。A 的内容未变，两个树共享同一个 blob；B 改变后引用新的 blob。逻辑快照和物理压缩存储是不同层次。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="425" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">给项目留存档，不必每次复制全部内容</text>
+<rect x="55" y="90" width="230" height="57" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="170.0" y="117" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">提交 V1（第一次存档）</text>
+<rect x="475" y="90" width="230" height="57" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="590.0" y="117" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">提交 V2（第二次存档）</text>
+<rect x="55" y="182" width="230" height="57" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="170.0" y="209" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">目录清单 T1（Tree）</text>
+<rect x="475" y="182" width="230" height="57" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="590.0" y="209" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">目录清单 T2（Tree）</text>
+<path d="M170 149V175" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M590 149V175" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<rect x="25" y="305" width="185" height="57" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="117.5" y="332" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">B.txt：原内容</text>
+<rect x="275" y="305" width="210" height="57" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="380.0" y="332" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">A.txt：内容没变，可共用</text>
+<rect x="550" y="305" width="185" height="57" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="642.5" y="332" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">B.txt：新内容</text>
+<path d="M115 241V270L118 299" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M230 241L350 298" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M530 241L410 298" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<path d="M645 241V299" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<text x="380" y="399" font-size="14" fill="#57606a" text-anchor="middle">Blob 保存内容，Tree 组织目录，Commit 记录存档与来由</text>
+</svg>

@@ -13,20 +13,20 @@
 
   <rect x="275" y="88" width="210" height="104" rx="12" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
   <text x="380" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#6366f1">② 规格 spec</text>
-  <text x="380" y="150" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2328">它具体长什么样</text>
-  <text x="380" y="174" text-anchor="middle" font-size="12.5" fill="#57606a">数据库？语言？接口？</text>
+  <text x="380" y="150" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2328">它必须怎样工作</text>
+  <text x="380" y="174" text-anchor="middle" font-size="12.5" fill="#57606a">功能、规则、成功与失败</text>
 
   <rect x="530" y="88" width="210" height="104" rx="12" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
   <text x="635" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#6366f1">③ 实现 implementation</text>
   <text x="635" y="150" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2328">真正的代码</text>
-  <text x="635" y="174" text-anchor="middle" font-size="12.5" fill="#57606a">代码 / 测试 / 文档</text>
+  <text x="635" y="174" text-anchor="middle" font-size="12.5" fill="#57606a">用代码完成这些要求</text>
 
   <line x1="230" y1="140" x2="269" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
   <line x1="485" y1="140" x2="524" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
-  <text x="252" y="126" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="600">gap ①</text>
-  <text x="507" y="126" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="600">gap ②</text>
+  <text x="252" y="126" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="600">缺口①</text>
+  <text x="507" y="126" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="600">缺口②</text>
 
   <rect x="20" y="300" width="720" height="56" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="380" y="324" text-anchor="middle" font-size="14" fill="#92400e">关键认知：AI 只能看到你「写下来的」部分</text>
-  <text x="380" y="346" text-anchor="middle" font-size="13" fill="#92400e">没写清楚的意图，它只能靠猜——猜错就成了 slop。</text>
+  <text x="380" y="324" text-anchor="middle" font-size="14" fill="#92400e">先把愿望说清楚，再用实际结果核对</text>
+  <text x="380" y="346" text-anchor="middle" font-size="13" fill="#92400e">要求写偏了，或代码不符合要求，都可能做错。</text>
 </svg>

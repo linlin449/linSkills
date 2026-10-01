@@ -4,18 +4,18 @@
       <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
     </marker>
   </defs>
-  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">保存当前值，还是保存事件序列</text>
+  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">只看现在的结果，还是保留它的来由</text>
 
   <rect x="20" y="56" width="350" height="270" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
-  <text x="38" y="84" font-size="15" font-weight="700" fill="#1f2328">当前状态快照（CRUD）</text>
+  <text x="38" y="84" font-size="15" font-weight="700" fill="#1f2328">只保存最后结果</text>
   <rect x="70" y="104" width="250" height="46" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
-  <text x="195" y="124" text-anchor="middle" font-size="13" font-weight="600" fill="#b91c1c">can_graduate = true</text>
-  <text x="195" y="141" text-anchor="middle" font-size="11.5" fill="#b91c1c">一个布尔值</text>
+  <text x="195" y="124" text-anchor="middle" font-size="13" font-weight="600" fill="#b91c1c">允许毕业 = 是</text>
+  <text x="195" y="141" text-anchor="middle" font-size="11.5" fill="#b91c1c">只知道“是”或“否”</text>
   <text x="38" y="186" font-size="12.5" fill="#1f2328">历史事实、适用规则、审批决定，</text>
   <text x="38" y="206" font-size="12.5" fill="#1f2328">全被压缩成一个当前值。</text>
   <text x="38" y="240" font-size="12.5" fill="#dc2626">成绩更正后，不知道哪些结论</text>
   <text x="38" y="258" font-size="12.5" fill="#dc2626">要重算、结论从哪里来。</text>
-  <text x="38" y="300" font-size="12.5" fill="#57606a">软件 = 现实的有损投影</text>
+  <text x="38" y="300" font-size="12.5" fill="#57606a">缺少依据，难以解释或恢复</text>
 
   <rect x="390" y="56" width="350" height="270" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
   <text x="408" y="84" font-size="15" font-weight="700" fill="#1f2328">事件溯源（Event Sourcing）</text>
@@ -28,10 +28,10 @@
   <rect x="560" y="154" width="130" height="40" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
   <text x="625" y="179" text-anchor="middle" font-size="12" font-weight="600" fill="#1f2328">审核已完成</text>
   <line x1="550" y1="124" x2="558" y2="124" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
-  <line x1="485" y1="144" x2="485" y2="152" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="625" y1="144" x2="485" y2="152" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
   <line x1="550" y1="174" x2="558" y2="174" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
-  <text x="408" y="228" font-size="12.5" font-weight="600" fill="#047857">投影 / 重放：把事件序列</text>
-  <text x="408" y="246" font-size="12.5" font-weight="600" fill="#047857">变成课表、点名册、审核视图。</text>
-  <text x="408" y="278" font-size="12.5" fill="#1f2328">能回答：过去发生了什么、为什么。</text>
+  <text x="408" y="228" font-size="12.5" font-weight="600" fill="#047857">从记录计算课表等结果，</text>
+  <text x="408" y="246" font-size="12.5" font-weight="600" fill="#047857">需要时重新处理这些记录。</text>
+  <text x="408" y="278" font-size="12.5" fill="#1f2328">还需保存规则与审批，才能解释为什么。</text>
   <text x="408" y="300" font-size="12.5" fill="#57606a">账本：余额 + 逐笔收支</text>
 </svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="435" viewBox="0 0 760 435" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">先区分业务承诺，再保留实现自由</title><desc id="desc">必须和禁止都是已决定的约束。超时处理等未定业务问题需要澄清，而存储结构等可在不违反承诺的前提下由实现者选择。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="435" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">先区分业务承诺，再保留实现自由</text>
+<rect x="30" y="90" width="335" height="115" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="197.5" y="117" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">必须：已决定的行为</text>
+<text x="197.5" y="141" font-size="13" fill="#57606a" text-anchor="middle">扣款前获得对应确认</text>
+<text x="197.5" y="164" font-size="13" fill="#57606a" text-anchor="middle">成功与失败必须有明确结果</text>
+<rect x="395" y="90" width="335" height="115" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="562.5" y="117" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">禁止：已决定的边界</text>
+<text x="562.5" y="141" font-size="13" fill="#57606a" text-anchor="middle">同一订单不能重复扣款</text>
+<text x="562.5" y="164" font-size="13" fill="#57606a" text-anchor="middle">并发与重试不能突破限额</text>
+<rect x="30" y="240" width="335" height="115" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/>
+<text x="197.5" y="267" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">待澄清：业务尚未决定</text>
+<text x="197.5" y="291" font-size="13" fill="#57606a" text-anchor="middle">超时后是否自动重试？</text>
+<text x="197.5" y="314" font-size="13" fill="#57606a" text-anchor="middle">先问清楚，不能自己当成已同意</text>
+<rect x="395" y="240" width="335" height="115" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="562.5" y="267" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">实现自由：有意留出的选择</text>
+<text x="562.5" y="291" font-size="13" fill="#57606a" text-anchor="middle">内部怎样存、怎样分工</text>
+<text x="562.5" y="314" font-size="13" fill="#57606a" text-anchor="middle">前提是满足对外承诺</text>
+<text x="380" y="409" font-size="14" fill="#57606a" text-anchor="middle">该确定的说明白，没想清楚的继续讨论；约定还要用测试核对</text>
+</svg>

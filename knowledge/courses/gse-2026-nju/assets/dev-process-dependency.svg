@@ -7,7 +7,7 @@
       <path d="M0 0 L10 5 L0 10 z" fill="#10b981"/>
     </marker>
   </defs>
-  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">开发流程不是线性流水线，而是一张数据依赖图</text>
+  <text x="380" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">后面的工作有依据，使用结果也会带来新问题</text>
 
   <rect x="24" y="64" width="120" height="52" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.5"/>
   <text x="84" y="95" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">需求</text>
@@ -30,15 +30,15 @@
   <line x1="576" y1="90" x2="598" y2="90" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
 
   <text x="84" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">客户想要什么</text>
-  <text x="228" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">消费需求，否则漂移</text>
-  <text x="372" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">依赖设计和规约</text>
-  <text x="516" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">关键反馈在此到来</text>
-  <text x="668" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">产生新事实</text>
+  <text x="228" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">根据需求安排分工</text>
+  <text x="372" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">按设计与要求写代码</text>
+  <text x="516" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">实际检查是否符合</text>
+  <text x="668" y="142" text-anchor="middle" font-size="12.5" fill="#57606a">发现新情况</text>
 
   <path d="M 668 116 C 668 220, 84 220, 84 118" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrGreen)"/>
-  <text x="380" y="212" text-anchor="middle" font-size="13" font-weight="600" fill="#047857">新事实推动下一轮变化（不用一次写完，也不必只走一遍）</text>
+  <text x="380" y="212" text-anchor="middle" font-size="13" font-weight="600" fill="#047857">使用反馈推动下一轮修改，不用一次把全部细节写完</text>
 
   <rect x="24" y="244" width="712" height="72" rx="10" fill="#f8fafc" stroke="#d9dce1"/>
   <text x="42" y="270" font-size="13" font-weight="700" fill="#1f2328">比较开发方法的一个问题</text>
-  <text x="42" y="292" font-size="13" fill="#1f2328">关键反馈会在什么时候到来？在它到来之前，有多少工作建立在未经检验的假设上？</text>
+  <text x="42" y="292" font-size="13" fill="#1f2328">什么时候能知道自己想错了？在那之前，已经投入了多少工作？</text>
 </svg>

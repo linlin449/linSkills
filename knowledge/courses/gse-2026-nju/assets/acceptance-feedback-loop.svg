@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-labelledby="title desc" font-family="system-ui,-apple-system,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<title id="title">验收让纠错有方向，但检查也有边界</title><desc id="desc">目标形成候选产物，通过检查得到反馈。未通过应修正，无法验证要报告缺口，通过仅表示已有检查满足。</desc>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#059669"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker>
+</defs><rect width="760" height="420" fill="#fff"/>
+<text x="380" y="34" font-size="20" fill="#1f2328" text-anchor="middle" font-weight="700">验收让纠错有方向，但检查也有边界</text>
+<rect x="30" y="95" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="130.0" y="122" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">目标与范围</text>
+<text x="130.0" y="146" font-size="13" fill="#57606a" text-anchor="middle">明确成功、失败和不做项</text>
+<rect x="280" y="95" width="200" height="85" rx="10" fill="#eef2ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="380.0" y="122" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">候选产物</text>
+<text x="380.0" y="146" font-size="13" fill="#57606a" text-anchor="middle">代码、页面或答案</text>
+<rect x="530" y="95" width="200" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="630.0" y="122" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">验收检查</text>
+<text x="630.0" y="146" font-size="13" fill="#57606a" text-anchor="middle">测试、试用、其他工具核对</text>
+<path d="M232 138H275" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#blue)"/>
+<path d="M482 138H525" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<rect x="280" y="265" width="200" height="85" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="380.0" y="292" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">未满足 / 缺证据</text>
+<text x="380.0" y="316" font-size="13" fill="#57606a" text-anchor="middle">修正或报告未完成</text>
+<rect x="530" y="265" width="200" height="85" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="630.0" y="292" font-size="14" fill="#1f2328" text-anchor="middle" font-weight="700">已有检查通过</text>
+<text x="630.0" y="316" font-size="13" fill="#57606a" text-anchor="middle">确认结果与剩余风险</text>
+<path d="M630 182V258" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#green)"/>
+<path d="M550 182V225H380V258" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#red)" stroke-dasharray="5 4"/>
+<path d="M330 263V186" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#red)" stroke-dasharray="5 4"/>
+<text x="340" y="222" font-size="13" fill="#dc2626" text-anchor="start">修正</text>
+<text x="380" y="393" font-size="14" fill="#57606a" text-anchor="middle">检查通过，不代表全部情况都正确；代码和测试也可能一起理解错</text>
+</svg>

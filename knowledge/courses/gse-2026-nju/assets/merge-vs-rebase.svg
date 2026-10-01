@@ -4,7 +4,7 @@
       <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
     </marker>
   </defs>
-  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">合并两条线：merge 和 rebase</text>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#1f2328">两条开发路线怎样汇合：merge 和 rebase</text>
 
   <rect x="20" y="60" width="350" height="290" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
   <text x="38" y="88" font-size="15" font-weight="700" fill="#1f2328">merge：两路合并</text>
@@ -16,18 +16,18 @@
   <line x1="280" y1="152" x2="215" y2="206" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
   <rect x="120" y="210" width="160" height="46" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
   <text x="200" y="237" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1f2328">merge 提交（合在一起）</text>
-  <text x="38" y="306" font-size="12.5" fill="#dc2626">问题：作者只记合并的人</text>
-  <text x="38" y="326" font-size="12.5" fill="#dc2626">B 写的代码被算到 A 头上</text>
+  <text x="38" y="306" font-size="12.5" fill="#dc2626">保留双方原提交与作者信息</text>
+  <text x="38" y="326" font-size="12.5" fill="#dc2626">新提交记录整合；冲突仍要作决定</text>
 
   <rect x="390" y="60" width="350" height="290" rx="12" fill="#f8fafc" stroke="#d9dce1"/>
   <text x="408" y="88" font-size="15" font-weight="700" fill="#1f2328">rebase：变基成一条直线</text>
   <text x="408" y="114" font-size="12.5" fill="#57606a">A 提交 1 → A 提交 2（保持不动）</text>
   <rect x="408" y="130" width="314" height="40" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
-  <text x="565" y="155" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">① 把 B 的 feature 搬到 A 后面</text>
+  <text x="565" y="155" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">① 在 A 的新基础重做 B 的功能</text>
   <rect x="408" y="180" width="314" height="40" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
-  <text x="565" y="205" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">② 再把 B 的 test 搬过来</text>
+  <text x="565" y="205" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">② 再重放 B 的后续修改</text>
   <rect x="408" y="230" width="314" height="40" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
   <text x="565" y="255" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">结果：一条直线（线性历史）</text>
-  <text x="408" y="306" font-size="12.5" fill="#dc2626">代价：每次搬都生成新 commit id</text>
-  <text x="408" y="326" font-size="12.5" fill="#dc2626">历史被改写，别再动已发布的提交</text>
+  <text x="408" y="306" font-size="12.5" fill="#dc2626">重放后通常得到新提交编号</text>
+  <text x="408" y="326" font-size="12.5" fill="#dc2626">重写共享历史前，先确认团队约定</text>
 </svg>
